@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>calculator</title>
+<style type="text/css">
+#calgrid{
+	display:grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	border:2px solid blue;
+	width:300px;
+}
+#ca , #res{
+	grid-column: 1/5
+}
+#calgrid p{
+	margin:0px;
+}
+#ca{
+	height:15px;
+	font-size:15px;
+}
+#res{
+	height:30px;
+	font-size:30px;
+
+}
+	
+</style>
+
+
+<script type="text/javascript">
+	var calc = ""
+	var last = ""
+	var par  = 0
+	var p = 0
+	var d = 0
+
+		function calculator(){
+			var y
+			if (last == "op"){
+				y = calc.slice( 0 , -3 )	
+			}
+			else if(last =="("){
+				var s = 4 + d
+				y = calc.slice( 0 , -s )
+			}
+			else {
+				y = calc
+			}
+			var x = eval( y )
+			document.getElementById("result").innerHTML = x
+			last = "res"
+			calc = x
+			document.getElementById("calc").innerHTML = calc
+			p = 0
+			d = 0
+		}
+		function nr(x){
+			if (last == "res"){
+				calc = ""+x
+			}
+			else if (last == ")"){
+				calc += " * "+x
+			}
+			else{
+				calc += + x 		
+			}
+			document.getElementById("calc").innerHTML = calc
+			last = "nr"
+			d = 0
+		}
+		function period(){
+
+		if (p == 1){}
+		else{
+			if (last == "nr"){
+				calc += "."
+			}
+			else if (last == ")"){
+				calc += " * 0."
+			}
+			else if (last == "res"){
+				calc = "0."
+			}
+			else{
+				calc += "0."
+			}
+			document.getElementById("calc").innerHTML = calc
+			p = 1
+			last = "nr"
+			d = 0
+		}
+		}
+
+		function op(y){
+
+			if (last == "") {
+				calc = "0 "+y+" "
+			}
+			else if (last == "("){
+				var s = 4 + d
+				var x = calc.slice( 0 , -s)
+				calc = x
+				calc += " "+y+" ";
+				par--	
+			}
+
+			else if (last == "op") {
+
+				var x = calc.slice( 0 , -3 )
+				calc = x
+				calc += " "+y+" "
+			}
+
+			else {
+
+				calc += " "+y+" " 	
+			}
+			last = "op"			
+			document.getElementById("calc").innerHTML = calc
+			p = 0
+			d = 0
+		}
+
+		function paro(){
+
+			if (last == "op" || last == ""){
+				calc += "("
+			} 
+			else if (last == "("){
+				calc += "("
+				d++
+
+			}
+
+			else {
+				calc += " * ("
+			}
+			par++
+			last = "("
+			document.getElementById("calc").innerHTML = calc
+			p = 0		
+		}
+		function parc() {
+			if (par == 0) {}
+			else {
+				if (last == "op"){
+
+					var x = calc.slice( 0 , -3 )
+					calc = x
+					calc += ")"
+					last = ")"				
+				}
+				else if (last == "("){		
+					var x = calc.slice( 0 , -1 )
+					calc = x
+					if (d == 0){
+						last = "op"	
+					}
+					else{ d-- }			
+				}
+				else {
+					calc += ")"
+					last = ")"
+
+				}
+			par--
+			}
+			document.getElementById("calc").innerHTML = calc
+			p = 0	
+		}
+		function del(){
+			calc = ""
+			last = ""
+			p = 0
+			par = 0
+			document.getElementById("calc").innerHTML = calc
+			d = 0
+		}
+		
+
+</script>
+</head>
+<body>
+<div id="calgrid">
+	<div id="ca"><p id="calc"></p></div>
+	<div id="res"><p id="result">0</p></div>
+	<button onclick="paro()">(</button>
+	<button onclick="parc()">)</button>
+	<button onclick="del()">del</button>
+	<button onclick="op('/')">/</button>
+	<button onclick="nr(1)">1</button>
+	<button onclick="nr(2)">2</button>
+	<button onclick="nr(3)">3</button>
+	<button onclick="op('+')">+</button>
+	<button onclick="nr(4)">4</button>
+	<button onclick="nr(5)">5</button>
+	<button onclick="nr(6)">6</button>
+	<button onclick="op('-')">-</button>
+	<button onclick="nr(7)">7</button>
+	<button onclick="nr(8)">8</button>
+	<button onclick="nr(9)">9</button>
+	<button onclick="op('*')">*</button>
+	<button onclick="period()">.</button>
+	<button onclick="nr(0)">0</button>
+	<button onclick="calculator()">=</button>
+</div>
+
+
+</body>
+</html>
