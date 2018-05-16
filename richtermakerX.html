@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>no more pesky oil colors for gerhard richter</title>
+	<style type="text/css">
+	#richterbox{
+		display: grid;
+		grid-gap: 5px;
+		background-color: rgb(252,252,250);
+		padding: 10px;
+
+	}
+
+	#richterbox button{
+		width:40px;height: 40px;border:none;
+		background-color: white;
+	}
+	@media print {
+		#printwrapper{
+			display:none;
+		}
+	}
+
+	</style>
+	<script type="text/javascript">
+		var count =0
+		function changecolor(x){
+			var field = 'document.getElementById("'+x+'")' ;//building the fitting element selector
+			var y = eval(field);
+			var z = document.getElementById("color").value
+			y.style.backgroundColor = z;//changing color to the selectet value
+}
+		function richtermakermaker(){
+			var r = document.getElementById('richterbox');//targeting grid
+			var x = Number(document.forms["rsize"]["columns"].value);
+			var y = Number(document.forms["rsize"]["rows"].value);//grabbing the size from the form
+			var a = 0;var text = "";var columns = "" ; 
+			count = x * y; var width = 45 * x - 5//calculating rquired width and number of squared
+			var columns = ""
+			for ( var i=0 ; i < x ; i++){//giving the number of columns to the grid
+			  columns += " 1fr";
+			}
+			r.style.gridTemplateColumns = columns
+			r.style.width = width + "px"//giving apropriate width to the grid
+
+			
+			for ( var i=0 ; i <count; i++) {//creating numbered buttons that give their number to the function they call
+				
+				text += "<button id='"+i+"' onclick='changecolor("+i+")'></button>"
+			}
+
+			r.innerHTML = text
+		}
+
+		function ra(){
+			for(i=0 ; i < count ; i++){
+				var r = Math.floor(Math.random()*256);//random generationg rgb values
+				var g = Math.floor(Math.random()*256);
+				var b = Math.floor(Math.random()*256);
+				var color = "rgb(" + r + "," + g + "," + b + ")";//creating a color string
+				var field = 'document.getElementById("'+i+'")' ;//selecting each field and filling in the color
+				var y = eval(field);
+				y.style.backgroundColor = color
+				//document.getElementById("rmm").innerHTML = color 
+			}
+
+		}
+			
+
+	</script>
+
+</head>
+<body>
+
+<div id="printwrapper">
+	<form name = "rsize"><!--the form to collect the size of the richter-->
+		<label>Pick the number of rows!</label>
+		<input type="number" name="rows" min=1 max=50>
+		<label>Pick the number of columns!</label>
+		<input type="number" name="columns" min=1 max=50>
+		<input type="button" onclick="richtermakermaker()" value="gimme richter">
+	</form><br>
+	<button id="r">Randomize Richter</button><!-- button to call the random function-->
+	<p>no compensation in case of eye sore</p>
+
+	<input type="color" id="color">
+
+</div>
+
+
+	<div id="richterbox"></div><!--the grid for the squares-->
+
+<script type="text/javascript">
+			document.getElementById("r").addEventListener("click", ra);
+
+
+</script>
+</body>
+</html>
