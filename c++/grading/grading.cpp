@@ -13,12 +13,15 @@ using namespace std;
 
 int studentfinder (string namef){
 	int found = 0;
+
 	for (int i=0 ; i<4 ; i++){
+
 		if ( students[i] == namef ){//identify the position of the student in the array and output it
 			return i;
 			found++;
 		};
 	};
+
 	if ( found == 0){//-1 return as student not found
 		return -1;
 	};
@@ -28,11 +31,14 @@ bool studentgrabber (){
 	fstream stud;
 	string inname;
 	stud.open ("students.txt" , ios::in);//getting the data with the student names
+
 	if ( stud.is_open() ){
+
 		while ( getline (stud,inname) ){
 			students[count] = inname;//write studentnames linewise into the arrays
 			count++;//counting students and changing the place in the array
 		};
+
 		stud.close();
 		return false;
 
@@ -43,22 +49,50 @@ bool studentgrabber (){
 
 void gradegrabber () {
 	fstream grades;
-	grades.open ( "grades.txt" , ios::in);
+	grades.open ( "grades.txt" , ios::in);//grades.txt saves the grades from a previous session
+
 	if ( grades.is_open() ){
-		for (int i=0;i<count;i++){
+		for (int i=0;i<count;i++){//reads out the same amout of grades as there is students
 			grades >> grade[i];
 		};
 	}
 	else {
-		cout << "No students have been gradet yet." << endl ;
+		cout << "No students have been gradet yet." << endl ;//notification if no file was found
 	};
 };
 
 void gradewriter () {
 	fstream grades;
 	grades.open ( "grades.txt" , ios::out);
-		for (int i=0;i<count;i++){
+
+		for (int i=0;i<count;i++){//writing the grades into a file in the same order the students are
 				grades << grade[i] << " " ;
+		};
+
+};
+
+void gradegiving () {
+	string yn; // (y/n) string for changing grades
+
+		if ( -1 == grade[number]){//grade of ungradet students is -1 -> set a grade
+			cout << name << " has not been gradet yet. Enter the grade of " << name << ":" << endl ;
+			cin >> grade[number];
+			cout << "The grade of " << name << " is now " << grade[number] << "." << endl ;
+		}
+		else{
+			cout << name << "s grade is " << grade[number] << "." << endl;
+			askagain:
+			cout << "Do you want to change" << name << "s grade? (y/n)";
+			cin >> yn;
+
+			if (yn == "y"){
+				cout << "Enter the new grade of " << name << ":" << endl ;
+				cin >> grade[number];
+				cout << "The grade of " << name << " is now " << grade[number] << "." << endl ;
+			}
+			else if (yn == "n") {}
+			else {goto askagain;};
+
 		};
 
 };
@@ -67,37 +101,40 @@ int main () {
 
 	string yes;
 	bool end = studentgrabber();
+
 	for (int i = 0; i < count; ++i){
 		grade[i] = -1;
 	};
+
 	if (end) {goto end;};//ending the program is no student file is found
+
 	gradegrabber();
+
 	moregrade://goto return point to continue grading
+
 	cout << "Enter a students name" << endl;
 	cin >> name;
-	
 	number = studentfinder(name);//check if the student is in th elist
+
 	if ( number == -1){
 		cout << name << " is not a student here." << endl ;
 	}
 	else{
-		if ( -1 == grade[number]){//grade of ungradet students is -1 -> set a grade
-			cout << name << " has not been gradet yet. Enter the grade of " << name << ":" << endl ;
-			cin >> grade[number];
-			cout << "The grade of " << name << " is now " << grade[number] << "." << endl ;
-		}
-		else{
-			cout << name << "s grade is " << grade[number] << "." << endl;
-		};
+		gradegiving();
 	};
 
-	cout << "Do you wish to continue giving grades? (type yes to continue)"<< endl ;
+	repeat:
+	cout << "Do you wish to continue giving grades? (y/n)"<< endl ;
 	cin >> yes;
-	if (yes == "yes"){
-		goto moregrade;
-	};
-	gradewriter();
-end://goto point for the no students name file found (canceling the program)
 
+	if (yes == "y"){
+		goto moregrade;
+	}
+	else if (yes == "n"){}
+	else { goto repeat;};
+
+	gradewriter();
+
+end://goto point for the no students name file found (canceling the program)
 return 0 ;
 };
