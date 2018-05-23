@@ -3,19 +3,40 @@
 #include <string>
 using namespace std;
 
+int charnumber ( int& i , string str ) {
+	int number = int(str[i]);
+	if ( number > 64 && number < 91){
+		i++;
+		return number;
+	}
+	else if (number > 91){
+		number -= 32;
+		i++;
+		return number;
+	}
+;
+};
+
+
+bool stringcompare () {
+	int i = 0 ; int j = 0 ;
+	string base ;
+	string swap ;
+
+
+};
+
 
 
 int main () {
-
-	string temp = "äÄa";
-	int a = temp.size();
-	int d = -61;int f = -92;
-	char g = d ; char h = f ;
-	for (int i=0;i<8;i++){
-	cout << temp[i] << int(temp[i]);
-};
-cout << endl << a << temp <<endl;
-cout << g << h << endl ;
+	string str = "äÄ" ;
+	int a;int j = 0;
+	for (int i = 0 ; i < 20 ; i++){
+		
+		a = charnumber( j , str );
+		cout << a << char(a);
+	}
+	cout << endl ;
 
 return 0;
 };
