@@ -3,6 +3,14 @@
 #include <string>
 using namespace std;
 
+string namelist = "peter+paul+mary+max+larry+";
+const int nmc = 5 ;
+size_t poslen [2][nmc] ;// poslen [0][x] will be position and poslen[1][x]the length of a name in the string; this array will be sortet instead of the strings
+size_t memo [nmc] ;
+
+
+
+
 int charnumber ( int& i , string str ) {//i call the position in the string by refernce so i can change it from inside because uft characters can have more bytes
 	int number = int(str[i]);
 	i++;
@@ -14,7 +22,7 @@ int charnumber ( int& i , string str ) {//i call the position in the string by r
 		return number;
 	}
 
-	else if (number < -64){//finding when its a 2 byte utf 8
+	else if (number = -61){//finding when its a 2 byte utf 8
 		number = int(str[i]);
 		i++;//second advancement of the position because 2 byte utf 8
 		if (number > -129 && number < -121){//A
@@ -70,20 +78,12 @@ int charnumber ( int& i , string str ) {//i call the position in the string by r
 		}
 		else {return 1;};//making it terminate
 	}
-	else if (number < -32 && number > -65){// checking for utf 8 with 3 bytes - didnt find a list / didnt want to sort that out
-		i +=2;
+	else if (number < -32 && number > -60){// didnt sort out those chars (yet?)
+		i +=1;
 		return 1;
 	}
-	else if (number < -16 && number > -33){// with 4 bytes 
-		i += 3;
-		return 1;
-	}
-	else if (number < -8 && number > -17){//etc
-		i += 4;
-		return 1;
-	}
-	else if (number < -4 && number > -9){
-		i += 5;
+	else if (number < -16 && number > -33){// for utf 8 with 3 bytes
+		i += 2;
 		return 1;
 	}
 	else {return 1;};//making it terminate
@@ -101,13 +101,64 @@ bool stringcompare (string base , string swap) {//returns true if swap is alphab
 	else { goto waseven;};//makes the function check the next letter because they were the same
 };
 
-
+void sorting (){
+	int k = 0;
+	size_t temp ;
+	for (int i = 0 ; i< nmc -1 ;i++){
+		if (k == 0){
+			for(int j= i+1 ; j < nmc ; j++ ){
+				bool swp = stringcompare ( namelist.substr(poslen[0][i],poslen[1][i]) , namelist.substr(poslen[0][j],poslen[1][j]) );
+				if(swp){
+					memo[k]=j;
+					k++;
+					temp = poslen[0][i];
+					poslen[0][i] = poslen[0][j];
+					poslen[0][j] = temp;
+					temp = poslen[1][i];
+					poslen[1][i] = poslen[1][j];
+					poslen[1][j] = temp;
+				};
+			};
+		}
+		else {
+			k--;
+			temp = poslen[0][i];
+			poslen[0][i] = poslen[0][memo[k]];
+			poslen[0][memo[k]] = temp;
+			temp = poslen[1][i];
+			poslen[1][i] = poslen[1][memo[k-1]];
+			poslen[1][memo[k]] = temp;
+			for (int j=memo[k]+1;j < nmc ; j++){
+				bool swp = stringcompare ( namelist.substr(poslen[0][i],poslen[1][i]) , namelist.substr(poslen[0][j],poslen[1][j]) );
+				if(swp){
+					memo[k]=j;
+					k++;
+					temp = poslen[0][i];
+					poslen[0][i] = poslen[0][j];
+					poslen[0][j] = temp;
+					temp = poslen[1][i];
+					poslen[1][i] = poslen[1][j];
+					poslen[1][j] = temp;
+				};
+			};
+		};
+	};
+};
 
 int main () {
-	string g = "ü";
-	
-	cout << stringcompare("äüg","äüä") <<endl ;
-	cout << int(g[1]) << endl;
+poslen [0][0] = 0;
+for (int i=1;i<nmc;i++){
+	poslen [0][i] = namelist.find("+",poslen [0][i-1]) + 1;
+	poslen [1][i-1] = poslen [0][i] - poslen [0][i-1] -1;
+};
+   poslen [1][nmc-1] = namelist.find("+",poslen[0][nmc-1]) - poslen[0][nmc-1];
 
+
+
+
+for (int i=0;i<nmc;i++){
+	string temp = namelist.substr(poslen[0][i],poslen[1][i]);
+	cout << temp << poslen[0][i] << poslen [1][i] << endl;
+};
 return 0;
 };
