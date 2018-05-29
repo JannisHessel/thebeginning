@@ -3,23 +3,32 @@
 #include <string>
 using namespace std;
 
-string namelist = "peter+paul+mary+max+larry+";
-const int nmc = 5 ;//count of students ; will propably chang eit into a max count
-size_t poslen [2][nmc] ;// poslen [0][x] will be position and poslen[1][x]the length of a name in the string; this array will be sortet instead of the strings
-size_t memo [nmc] ;//saves the location of the string swaps to return later - saves a bunch of string comparisons
+//reades a list of names from a file one name per line and sorts them ; please writs lastname,surname
 
+
+string namelist = "";//all the names will be written in it one after another
+const int mx = 50 ;//maximum count of students for memory purpuses
+size_t poslen [2][mx] ;// poslen [0][x] will be position and poslen[1][x]the length of a name in the string; this array will be sortet instead of the strings
+size_t memo [mx] ;//saves the location of the string swaps to return later - saves a bunch of string comparisons
+int nmc = 0; //counting the students in an input file
 
 
 
 int charnumber ( int& i , string str ) {//i call the position in the string by refernce so i can change it from inside because uft characters can have more bytes
 	int number = int(str[i]);
 	i++;
-	if ( number > -1 && number < 91){//starting to  map chars to numbers from 0 so it sorts ->stringend ->spacebar ->numbers ->letters properly ; i dont care about commands or special signs
+	if ( number > 47 && number < 91){//starting to  map chars to numbers from 0 so it sorts ->stringend ->spacebar ->numbers ->letters properly ; i dont care about commands or special signs
 		return number;
 	}
 	else if (number > 96 && number < 123){//mapping small letters onto the numbers of large letters
 		number -= 32;
 		return number;
+	}
+	else if (number == 44){//i will use comma as seperator between surname and last name;lower than almost everything so the shorter last name is ahead alphabetically(meyer<meyers)
+		return 1;
+	}
+	else if (number == 0){//return 0 for the strong end for the same reason
+		return 0;
 	}
 
 	else if (number = -61){//finding when its a 2 byte utf 8
@@ -126,7 +135,7 @@ void sorting (){
 			poslen[0][i] = poslen[0][memo[k]];//swapping with the currend i-position becaue i know the memo element is the smallest between i and memo[k]
 			poslen[0][memo[k]] = temp;
 			temp = poslen[1][i];
-			poslen[1][i] = poslen[1][memo[k-1]];
+			poslen[1][i] = poslen[1][memo[k]];
 			poslen[1][memo[k]] = temp;
 			for (int j=memo[k]+1;j < nmc ; j++){//starting the comparison for all the elements after memo[k] -- same as above
 				bool swp = stringcompare ( namelist.substr(poslen[0][i],poslen[1][i]) , namelist.substr(poslen[0][j],poslen[1][j]) );
@@ -145,13 +154,46 @@ void sorting (){
 	};
 };
 
-int main () {
-poslen [0][0] = 0;//setting the fist position at the start of the string
-for (int i=1;i<nmc;i++){
-	poslen [0][i] = namelist.find("+",poslen [0][i-1]) + 1;//searching for the next position right after the "+"" i use as seperator
-	poslen [1][i-1] = poslen [0][i] - poslen [0][i-1] -1;//calculating the length between both positions
+bool fullnamereader (){//true if there was no file found becaus eits more plesant to code
+	fstream names;
+	string temp;//gets the lines 
+	names.open ( "fullnames.txt" , ios::in);
+	if (  names.is_open()){
+		while ( getline(names, temp)){//getting a line from the name file
+			namelist.append(temp);//collecting all names in one string
+			poslen[1][nmc] = temp.length();//saving the length of a name to read it out of the huge string later
+			nmc++;//counting the names
+		};
+		return false;
+	}
+	else{
+		cout << "could not open a file named fullnames.txt" << endl;//reaction if there was no file with the correct name
+		return true;
+	};
 };
-   poslen [1][nmc-1] = namelist.find("+",poslen[0][nmc-1]) - poslen[0][nmc-1];// the last lenth calculation isnt caught by the loop
+
+
+int main () {
+string go;//for inputs for later interaction
+bool filecheck;
+poslen [0][0] = 0;//setting the staring position at the start of the string
+
+nofilereturn:
+
+cout << "type go to go" << endl ;
+cin >> go;//currently there so not finding a file deant make it loop forever
+
+if ( go == "go"){cout << "trying to read" << endl;}
+else { goto nofilereturn;};
+
+filecheck = fullnamereader();
+if (filecheck){
+	goto nofilereturn;//reaction if there was no file with the correct name
+};
+
+for (int i=1;i<nmc;i++){
+poslen[0][i]=poslen[0][i-1]+poslen[1][i-1];//calculating the positions of all the names in the string from the length of each
+};
 
 sorting();//shmorting
 
