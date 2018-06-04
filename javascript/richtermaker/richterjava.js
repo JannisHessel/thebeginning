@@ -1,8 +1,8 @@
-		var count = 0
-		var col = 0
-		var riwi = 40
-		var rihei = 40
-		var gap = 5
+		var count = 0 //number of the rectangles
+		var col = 0 //number of columns
+		var riwi = 40 // width of the rectangles
+		var rihei = 40 // height
+		var gap = 5 // grid gap of the grid
 
 
 		function changecolor(x){
@@ -38,7 +38,7 @@
 
 			r.innerHTML = text;
 			if( riwi != 40 || rihei != 40){
-			sizechanger();
+			sizechanger();//resizing in case the size isnt the default one
 			}
 		}
 
@@ -71,7 +71,7 @@
 		function sizechanger(){
 			riwi = Number(document.forms["recsize"]["riwi"].value);
 			rihei = Number(document.forms["recsize"]["rihei"].value);
-			if ( riwi == 0  ){
+			if ( riwi == 0  ){//checking if there were numbers selectet and setting default if there werent
 				riwi = 40
 			};
 			if (rihei == 0){
@@ -79,7 +79,7 @@
 			}
 			
 			for(i=0 ; i<count ; i++){
-			var field = 'document.getElementById("'+i+'")' ;
+			var field = 'document.getElementById("'+i+'")' ;//looping through the squares to change sizes similar to random colors
 			var y = eval(field);
 			y.style.height = rihei + "px";
 			y.style.width = riwi + "px" ;
@@ -87,11 +87,19 @@
 
 			var r = document.getElementById('richterbox');
 
-			var width = ( riwi + gap ) * col - gap;
+			var width = ( riwi + gap ) * col - gap;//resizing the grid to the apropriate size
 			r.style.width = width + "px";
 		};
 		function gapchanger(){
 		gap = Number(document.forms["gap"]["gap"].value);
 		var r = document.getElementById('richterbox');
 		r.style.gridGap = gap + "px";
+		var width = ( riwi + gap ) * col - gap;//setting a new grid gap requites resizing of the grid
+		r.style.width = width + "px";
+		}
+		function background(){
+		var r = document.getElementById('richterbox');	
+		var z = document.getElementById("color").value;
+		r.style.backgroundColor = z;
+
 		}
