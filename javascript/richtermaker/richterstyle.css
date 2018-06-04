@@ -1,0 +1,20 @@
+	#richterbox{
+		display: grid;
+		grid-gap: 5px;
+		background-color: rgb(250,250,250);
+		padding: 10px;
+
+	}
+
+	#richterbox button{
+		width:40px;height: 40px;border:none;
+		background-color: white;
+	}
+	@media print {
+		#printwrapper{
+			display:none;
+		}
+	}
+	h1{
+		text-align: center;
+	}
