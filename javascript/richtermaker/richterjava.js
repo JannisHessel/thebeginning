@@ -71,7 +71,7 @@
 		function sizechanger(){
 			riwi = Number(document.forms["recsize"]["riwi"].value);
 			rihei = Number(document.forms["recsize"]["rihei"].value);
-			if ( riwi < 16 ){
+			if ( riwi == 0  ){
 				riwi = 40
 			};
 			if (rihei == 0){
