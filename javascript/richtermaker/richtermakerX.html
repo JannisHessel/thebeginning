@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+
 	<title>no more pesky oil colors for gerhard richter</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="richterstyle.css">
@@ -8,27 +9,56 @@
 
 </head>
 <body>
+
 <div id="printwrapper">
+
 	<h1>Make your own Gerhard Richter painting</h1>
+
 	<form name = "rsize"><!--the form to collect the size of the richter-->
+
 		<label>Pick the number of rows!</label>
-		<input type="number" name="rows" min=1 max=200>s
+		<input type="number" name="rows" min=1 max=200>
+
 		<label>Pick the number of columns!</label>
 		<input type="number" name="columns" min=1 max=200>
-		<input type="button" onclick="richtermakermaker()" value="gimme richter">
+
+		<input type="button" onclick="buttonmaker()" value="create a field of rectagles">
+
 	</form><br>
+	<p>Both default to 10</p>
+
+
 	<form name = "recsize">
+
 		<label>Pick a Height gor the rectangles(default 40 pixels)</label>
 		<input type="number" name="rihei" min=1 max=300>
+
 		<label>Pick a width for the rectangles (default 40 pixels)</label>
 		<input type="number" name="riwi" min=1 max=300>	
-		<input type="button" onclick="sizechanger()" value="change sizes">	
+
+		<input type="button" onclick="sizechanger()" value="change sizes">
+
 	</form>
+
 	<form name="gap">
+
 		<label>pick a size for the gap (default 5 pixels)</label>
 		<input type="number" name="gap" min = 0 max=300>
+
 		<input type="button" onclick="gapchanger()" value="change the gap">
+
 	</form>
+
+	<form name="pad">
+
+		<label>pick a size for the surrounding (default 5 pixels)</label>
+		<input type="number" name="pad" min = 0 max=300>
+
+		<input type="button" onclick="padchanger()" value="change the padding">
+
+	</form>
+
+
 	<button id="r"><!-- button to call the random function-->
 		<span id="r1">R</span><!-- every letter gets a span so they all can gchange color -->
 		<span id="r2">a</span>
@@ -46,19 +76,32 @@
 		<span id="r14">r</span>
 		<span id="r15">s</span>
 	</button>
+
 	<p>no compensation in case of eye sore</p>
 
 	<input type="color" id="color">
-	<button onclick="background()">Change background color to the currently selectet one</button>
+	<button onclick="background()">Change background color to the first one</button>
+	<input type="color" id="color2">
+	<button onclick="bgradient()">Change background color to a gradient between the 2 colors</button>
+	<form name="grad">
+		<label>Choose the direction of the transition:</label>
+		<input type="radio" name="grad" value="tb" checked="checked"><label>from top to bottom</label>
+		<input type="radio" name="grad" value="lr"><label>from left to right</label>
+		<input type="radio" name="grad" value="dia"><label>diagonally to bottom right</label>
+		<input type="radio" name="grad" value="adia"><label>the other diagonal</label>
+		<input type="radio" name="grad" value="rad"><label>radially around the center</label>
+	</form>
+	<p>the squares change color to the first one on click</p>
 
-</div>
+</div><!-- printwrapper closing -->
 
+<div id="richterbox"></div><!--the grid for the squares-->
 
-	<div id="richterbox"></div><!--the grid for the squares-->
+</body>
 
 <script type="text/javascript">
-			document.getElementById("r").addEventListener("click", ra);
+			document.getElementById("r").addEventListener("click", randomizer);
 			document.getElementById("r").addEventListener("mouseover", randbutton);
 </script>
-</body>
+
 </html>

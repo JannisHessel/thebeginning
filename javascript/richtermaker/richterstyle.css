@@ -1,23 +1,26 @@
-	#richterbox{
-		display: grid;
-		grid-gap: 5px;
-		background-color: rgb(250,250,250);
-		padding: 10px;
-		width:100px;
-	}
+#richterbox{
+	display: grid;
+	grid-gap: 5px;
+	background-color: rgb(250,250,250);
+	padding: 10px;
+	width:100px;
+}
 
-	#richterbox button{
-		width:40px;height: 40px;
-		border:none;
-		background-color: white;
-			font-size:1px;/*font size determins the minimum width of buttons*/
-			padding:0px;
+#richterbox button{
+	width:40px;height: 40px;
+	border:none;
+	background-color: white;
+	font-size:1px;/*font size determins the minimum width of buttons*/
+	padding:0px;
+}
+
+@media print {
+
+	#printwrapper{
+		display:none;
 	}
-	@media print {
-		#printwrapper{
-			display:none;
-		}
-	}
-	h1{
-		text-align: center;
-	}
+}
+
+h1{
+	text-align: center;
+}
