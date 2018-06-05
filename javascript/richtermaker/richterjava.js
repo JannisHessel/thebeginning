@@ -122,19 +122,19 @@ function background(){
 
 	var r = document.getElementById('richterbox');	
 	var z = document.getElementById("color").value;
-	var bg = "linear-gradient("+z+","+z+")"
+	var bg = "linear-gradient("+z+","+z+")"//needs to change the background gradient because the gradient overwrites background color
 	r.style.background = bg;
 };
 
 function bgradient(){
 
-	var gr = document.forms["grad"]["grad"].value;
+	var gr = document.forms["grad"]["grad"].value;//radio to pick which kind of gradient
 	var r = document.getElementById('richterbox');
 	var y = document.getElementById("color2").value;
 	var z = document.getElementById("color").value;
 	var bg
 
-	if(gr=="tb"){
+	if(gr=="tb"){//picking out the option for the background
 		bg = "linear-gradient("+z+","+y+")"
 	}
 	else if(gr=="lr"){

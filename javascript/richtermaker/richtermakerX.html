@@ -59,7 +59,7 @@
 	</form>
 
 
-	<button id="r"><!-- button to call the random function-->
+	<button id="r"><!-- button to call the random-color function randomizer-->
 		<span id="r1">R</span><!-- every letter gets a span so they all can gchange color -->
 		<span id="r2">a</span>
 		<span id="r3">n</span>
@@ -84,7 +84,7 @@
 	<input type="color" id="color2">
 	<button onclick="bgradient()">Change background color to a gradient between the 2 colors</button>
 	<form name="grad">
-		<label>Choose the direction of the transition:</label>
+		<label>Choose the direction of the gradient:</label>
 		<input type="radio" name="grad" value="tb" checked="checked"><label>from top to bottom</label>
 		<input type="radio" name="grad" value="lr"><label>from left to right</label>
 		<input type="radio" name="grad" value="dia"><label>diagonally to bottom right</label>
@@ -100,8 +100,8 @@
 </body>
 
 <script type="text/javascript">
-			document.getElementById("r").addEventListener("click", randomizer);
-			document.getElementById("r").addEventListener("mouseover", randbutton);
+			document.getElementById("r").addEventListener("click", randomizer);//i dont like this way bacause i like to see what my buttons do in the html- left it in for show sort of
+			document.getElementById("r").addEventListener("mouseover", randbutton);//randomizing the colors of the letters on the button for lulz
 </script>
 
 </html>
