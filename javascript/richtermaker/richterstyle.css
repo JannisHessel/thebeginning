@@ -1,9 +1,10 @@
 #richterbox{
 	display: grid;
 	grid-gap: 5px;
-	background-color: rgb(250,250,250);
+	background-color: #eee;
 	padding: 10px;
-	width:100px;
+	width:220px;
+	grid-template-columns:1fr 1fr 1fr 1fr 1fr;
 }
 
 #richterbox button{

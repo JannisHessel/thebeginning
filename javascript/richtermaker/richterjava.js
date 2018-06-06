@@ -1,8 +1,8 @@
-var count = 0 //number of the rectangles
-var col = 0 //number of columns
+var count = 25 //number of the rectangles
+var col = 5 //number of columns
 var riwi = 40 // width of the rectangles
 var rihei = 40 // height
-var gap = 5 // grid gap of the grid
+var vgap = 5 // grid gap of the grid
 
 
 function changecolor(x){//x is the number of the button from which the function is called
@@ -20,17 +20,17 @@ function buttonmaker(){
 	var y = Number(document.forms["rsize"]["rows"].value);//grabbing the size from the form
 
 	if ( col == 0 ){//setting default to 10 rows;columns
-		col = 10;
+		col = 5;
 	};
 	if ( y == 0 ){
-		y = 10;
+		y = 5;
 	};
 
 	var a = 0;
 	var text = "";
 	var columns = "" ; 
 	count = col * y; 
-	var width = ( riwi + gap ) * col - gap//calculating rquired width and number of squared
+	var width = ( riwi + vgap ) * col - vgap//calculating rquired width and number of squared
 	var columns = ""
 
 	for ( var i=0 ; i < col ; i++){//giving the number of columns to the grid
@@ -98,16 +98,17 @@ function sizechanger(){
 	};
 
 	var r = document.getElementById('richterbox');
-	var width = ( riwi + gap ) * col - gap;//resizing the grid to the apropriate size
+	var width = ( riwi + vgap ) * col - vgap;//resizing the grid to the apropriate size
 	r.style.width = width + "px";
 };
 
 function gapchanger(){
 
-	gap = Number(document.forms["gap"]["gap"].value);
+	vgap = Number(document.forms["gap"]["vgap"].value);
+	var hgap = Number(document.forms["gap"]["hgap"].value);
 	var r = document.getElementById('richterbox');
-	r.style.gridGap = gap + "px";
-	var width = ( riwi + gap ) * col - gap;//setting a new grid gap requites resizing of the grid
+	r.style.gridGap = hgap + "px " + vgap +"px";
+	var width = ( riwi + vgap ) * col - vgap;//setting a new grid gap requites resizing of the grid
 	r.style.width = width + "px";
 };
 
@@ -151,4 +152,173 @@ function bgradient(){
 	}
 
 	r.style.background = bg;
+};
+
+function def(){
+ 	
+	var col = "#eeeeee"
+
+	document.forms["weight"].reset()
+ 	document.forms["gap"].reset()
+ 	document.forms["pad"].reset()
+	document.forms["recsize"].reset()
+ 	document.forms["rsize"].reset()
+ 	document.forms["grad"].reset()
+ 	document.getElementById("color2").value=col;
+ 	document.getElementById("color").value=col;
+
+ 	background();
+ 	padchanger();
+ 	gapchanger();
+ 	sizechanger();
+ 	buttonmaker();
+
+ 	for(i=1 ; i < 16 ; i++){//making the letters black
+		var field = 'document.getElementById("r'+i+'")' ;
+		var y = eval(field);
+		var color = "rgb(0,0,0)"
+		y.style.color =  color;
+	};
+};
+
+function wei(){
+
+	var x = Number(document.forms["weight"]["exp"].value);
+	var color = document.forms["weight"]["color"].value;
+	var max = count;
+	var mult = 1 ;
+	var start = 0 ;
+	var rowcol = document.forms["weight"]["rowcol"].value;
+	var rownr = Number(document.forms["weight"]["rownr"].value);
+
+	if (rowcol == "row"){
+		start = col * (rownr-1);
+		max = col;
+	}
+	else if(rowcol == "col"){
+		start = rownr - 1;
+		mult =col;
+		max = count / col;
+	}
+
+
+	if(color=="white"){
+
+		for(i=0 ; i < max ; i++){
+
+			var j = start + j * i
+			var r = Math.floor(Math.pow(Math.random(),x)*256);//random generationg rgb values
+			var g = Math.floor(Math.pow(Math.random(),x)*256);
+			var b = Math.floor(Math.pow(Math.random(),x)*256);
+			var color = "rgb(" + r + "," + g + "," + b + ")";//creating a color string
+			var field = 'document.getElementById("'+j+'")' ;//selecting each field and filling in the color
+			var y = eval(field);
+			y.style.backgroundColor = color
+		}
+	}
+
+	else if (color == "black"){
+
+		for(i=0 ; i < max ; i++){
+
+			var j = start + mult * i
+			var r = Math.floor((1 - Math.pow(Math.random(),x))*256);//random generationg rgb values
+			var g = Math.floor((1 - Math.pow(Math.random(),x))*256);
+			var b = Math.floor((1 - Math.pow(Math.random(),x))*256);
+			var color = "rgb(" + r + "," + g + "," + b + ")";//creating a color string
+			var field = 'document.getElementById("'+j+'")' ;//selecting each field and filling in the color
+			var y = eval(field);
+			y.style.backgroundColor = color
+		}
+	}
+
+	else if (color == "red"){
+
+		for(i=0 ; i < max ; i++){
+
+			var j = start + mult * i
+			var r = Math.floor(Math.pow(Math.random(),x)*256);//random generationg rgb values
+			var g = Math.floor((1 - Math.pow(Math.random(),x))*256);
+			var b = Math.floor((1 - Math.pow(Math.random(),x))*256);
+			var color = "rgb(" + r + "," + g + "," + b + ")";//creating a color string
+			var field = 'document.getElementById("'+j+'")' ;//selecting each field and filling in the color
+			var y = eval(field);
+			y.style.backgroundColor = color
+		}
+	}
+
+	else if (color == "green"){
+
+		for(i=0 ; i < max ; i++){
+
+			var j = start + mult * i
+			var r = Math.floor((1 - Math.pow(Math.random(),x))*256);//random generationg rgb values
+			var g = Math.floor(Math.pow(Math.random(),x)*256);
+			var b = Math.floor((1 - Math.pow(Math.random(),x))*256);
+			var color = "rgb(" + r + "," + g + "," + b + ")";//creating a color string
+			var field = 'document.getElementById("'+j+'")' ;//selecting each field and filling in the color
+			var y = eval(field);
+			y.style.backgroundColor = color
+		}
+	}
+
+	else if (color == "blue"){
+
+		for(i=0 ; i < max ; i++){
+
+			var j = start + mult * i
+			var r = Math.floor((1 - Math.pow(Math.random(),x))*256);
+			var g = Math.floor((1 - Math.pow(Math.random(),x))*256);
+			var b = Math.floor(Math.pow(Math.random(),x)*256);
+			var color = "rgb(" + r + "," + g + "," + b + ")";//creating a color string
+			var field = 'document.getElementById("'+j+'")' ;//selecting each field and filling in the color
+			var y = eval(field);
+			y.style.backgroundColor = color
+		}
+	}
+
+	else if (color == "yellow"){
+
+		for(i=0 ; i < max ; i++){
+
+			var j = start + mult * i
+			var r = Math.floor(Math.pow(Math.random(),x)*256);//random generationg rgb values
+			var g = Math.floor(Math.pow(Math.random(),x)*256);
+			var b = Math.floor((1 - Math.pow(Math.random(),x))*256);
+			var color = "rgb(" + r + "," + g + "," + b + ")";//creating a color string
+			var field = 'document.getElementById("'+j+'")' ;//selecting each field and filling in the color
+			var y = eval(field);
+			y.style.backgroundColor = color
+		}
+	}
+
+	else if (color == "purple"){
+
+		for(i=0 ; i < max ; i++){
+
+			var j = start + mult * i
+			var r = Math.floor(Math.pow(Math.random(),x)*256);//random generationg rgb values
+			var g = Math.floor((1 - Math.pow(Math.random(),x))*256);
+			var b = Math.floor(Math.pow(Math.random(),x)*256);
+			var color = "rgb(" + r + "," + g + "," + b + ")";//creating a color string
+			var field = 'document.getElementById("'+j+'")' ;//selecting each field and filling in the color
+			var y = eval(field);
+			y.style.backgroundColor = color
+		}
+	}
+
+	else if (color == "tur"){
+
+		for(i=0 ; i < max ; i++){
+
+			var j = start + mult * i
+			var r = Math.floor((1 - Math.pow(Math.random(),x))*256);
+			var g = Math.floor(Math.pow(Math.random(),x)*256);
+			var b = Math.floor(Math.pow(Math.random(),x)*256);
+			var color = "rgb(" + r + "," + g + "," + b + ")";//creating a color string
+			var field = 'document.getElementById("'+j+'")' ;//selecting each field and filling in the color
+			var y = eval(field);
+			y.style.backgroundColor = color
+		}
+	}
 };
