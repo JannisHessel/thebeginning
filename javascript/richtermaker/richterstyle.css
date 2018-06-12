@@ -25,3 +25,25 @@
 h1{
 	text-align: center;
 }
+#over{	
+	display: grid;
+	width:100%;
+	padding: 10px;
+	grid-gap:5px;
+	position:absolute;
+	top: 0;
+	grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+	box-sizing: border-box;
+	opacity:0;
+}
+#wrap{
+	display:inline-block;
+	position: relative;
+}
+#over button{
+	width:40px;height: 40px;
+	border:none;
+	opacity:0;
+	font-size:1px;/*font size determins the minimum width of buttons*/
+	padding:0px;
+}
