@@ -3,13 +3,29 @@ var col = 5 //number of columns
 var riwi = 40 // width of the rectangles
 var rihei = 40 // height
 var vgap = 5 // grid gap of the grid
+var colcount = 1 //count of colors in the pallet
 
+function hide(x){//function to hide toggle the advanced options
+
+	var field = 'document.getElementById("'+x+'")' ;//made so 1 function can be used for multiple elements
+	var y = eval(field)
+
+	if(y.style.display === "block"){
+		y.style.display = "none"
+	}
+	else{
+		y.style.display = "block"
+	}
+}
 
 function changecolor(x){//x is the number of the button from which the function is called
 
+	var pal = document.forms["color"]["pallet"].value//picking out colors from a specific pallet element
+	var pick = 'document.forms["color"]["'+pal+'"].value'
+
 	var field = 'document.getElementById("'+x+'")' ;//building the fitting element selector
 	var y = eval(field);
-	var z = document.getElementById("color").value
+	var z = eval(pick);
 	y.style.backgroundColor = z;//changing color to the selectet value
 }
 
@@ -17,8 +33,8 @@ function buttonmaker(){
 
 	var o = document.getElementById('over')//targeting th eoverlay
 	var r = document.getElementById('richterbox');//targeting the grid that is visible
-	col = Number(document.forms["rsize"]["columns"].value);//inseting the number of columns
-	var y = Number(document.forms["rsize"]["rows"].value);//grabbing the size from the form
+	col = Number(document.forms["input"]["columns"].value);//inseting the number of columns
+	var y = Number(document.forms["input"]["rows"].value);//grabbing the size from the form
 
 	if ( col == 0 ){//setting default to 5 rows;columns
 		col = 5;
@@ -87,8 +103,8 @@ function randbutton(){//gives the randomize colors button random colors
 
 function sizechanger(){
 
-	riwi = Number(document.forms["recsize"]["riwi"].value);
-	rihei = Number(document.forms["recsize"]["rihei"].value);
+	riwi = Number(document.forms["input"]["riwi"].value);
+	rihei = Number(document.forms["input"]["rihei"].value);
 
 	if ( riwi == 0  ){//checking if there were numbers selectet and setting default if there werent
 		riwi = 40
@@ -99,6 +115,7 @@ function sizechanger(){
 	};
 
 	for(i=0 ; i<count ; i++){
+
 		var field = 'document.getElementById("'+i+'")' ;//looping through the squares to change sizes similar to random colors
 		var y = eval(field);
 		y.style.height = rihei + "px";
@@ -116,8 +133,8 @@ function sizechanger(){
 
 function gapchanger(){
 
-	vgap = Number(document.forms["gap"]["vgap"].value);
-	var hgap = Number(document.forms["gap"]["hgap"].value);
+	vgap = Number(document.forms["input"]["vgap"].value);
+	var hgap = Number(document.forms["input"]["hgap"].value);
 	var r = document.getElementById('richterbox');
 	var o = document.getElementById('over');
 	o.style.gridGap = hgap + "px " + vgap +"px";
@@ -128,7 +145,7 @@ function gapchanger(){
 
 function padchanger(){
 
-	var pad = Number(document.forms["pad"]["pad"].value);
+	var pad = Number(document.forms["input"]["pad"].value);
 	var o = document.getElementById('over');
 	var r = document.getElementById('richterbox');
 	r.style.padding = pad + "px";
@@ -136,20 +153,21 @@ function padchanger(){
 
 };
 
-function background(){
+function bcol(){
 
 	var r = document.getElementById('richterbox');
-	var z = document.getElementById("color").value;
+	var z = document.forms["input"]["bcolor"].value;
 	var bg = "linear-gradient("+z+","+z+")"//needs to change the background gradient because the gradient overwrites background color
 	r.style.background = bg;
+
 };
 
 function bgradient(){
 
-	var gr = document.forms["grad"]["grad"].value;//radio to pick which kind of gradient
+	var gr = document.forms["input"]["grad"].value;//radio to pick which kind of gradient
 	var r = document.getElementById('richterbox');
-	var y = document.getElementById("color2").value;
-	var z = document.getElementById("color").value;
+	var y = document.forms["input"]["bcolor2"].value;
+	var z = document.forms["input"]["bcolor"].value;
 	var bg
 
 	if(gr=="tb"){//picking out the option for the background
@@ -175,17 +193,18 @@ function bgradient(){
 function over(){
 
 	var r = document.getElementById('over');
-	var z = document.getElementById("ocol").value;
+	var z = document.forms["input"]["ocol"].value;
 	var bg = "linear-gradient("+z+","+z+")"//needs to change the background gradient because the gradient overwrites background color
 	r.style.background = bg;
+
 };
 
 function ovgr(){
 
-	var gr = document.forms["ogr"]["ogr"].value;//radio to pick which kind of gradient
+	var gr = document.forms["input"]["ogr"].value;//radio to pick which kind of gradient
 	var r = document.getElementById('over');
-	var y = document.getElementById("ocol").value;
-	var z = document.getElementById("ocol2").value;
+	var y = document.forms["input"]["ocol"].value;
+	var z = document.forms["input"]["ocol2"].value;
 	var bg
 
 	if(gr=="tb"){//picking out the option for the background
@@ -207,36 +226,89 @@ function ovgr(){
 	r.style.background = bg;
 };
 
-function opa(){
+function opac(){
 
-		var opa = document.forms["ogr"]["opa"].value;
+		var opa = document.forms["input"]["opa"].value;
 		var r = document.getElementById('over');
 		r.style.opacity = opa
 }
 
+function colormaker(){
+	document.getElementById("colorpallet").insertAdjacentHTML('beforeend', '<div class="colbox"><input type="color" name="col'+colcount+'" id="col'+colcount+'"><input type="radio" name="pallet" value="col'+colcount+'"><button type="button" onclick="colorremover('+colcount+')">X</button></div>')
+	colcount ++//adding in single fields with a radio to pick the color
+};
+
+function colorremover(x){//removes the xth colorfield made by the function above and remembers colors
+
+	var x
+	var helper
+	var newinner =""
+	var colors =""
+	for(i=0; i<colcount ;i++){//reading out all the colors into a string
+		if(i != x){
+			helper ='document.forms["color"]["col'+i+'"].value'
+			colors += eval(helper)
+		}
+	}
+
+	colcount --
+	for(i=0; i<colcount ;i++){//making a new set of buttons which is 1 less
+		newinner += '<div class="colbox"><input type="color" name="col'+i+'" id="col'+i+'"><input type="radio" name="pallet" value="col'+i+'"><button type="button" onclick="colorremover('+i+')">X</button></div>'
+	}
+	
+
+	document.getElementById("colorpallet").innerHTML = newinner
+
+	for(i=0; i<colcount ; i++){//reading out the colors from the string and putting them in the new input fields
+		helper = 'document.getElementById("col'+i+'")'
+		x = eval(helper)
+		helper = colors.substring(7*i,7*(i+1))
+		x.value = helper
+	}
+}
+function allcol(){
+
+	var max = count;//counting how many fields are colored for the row/column selection
+	var mult = 1 ;//used to multiply the running index so fields are skipped until the one in the same column again
+	var start = 0 ;//when coloring rows and columns this is used to start at the right element; defaults of all these are set for coloring everything
+	var rowcol = document.forms["color"]["rowcol"].value;//determins wether rows or columns should be colored
+	var rownr = Number(document.forms["color"]["rownr"].value);
+
+	var pal = document.forms["color"]["pallet"].value//picking out colors from a specifieg pallet element
+	var pick = 'document.forms["color"]["'+pal+'"].value'
+	var z = eval(pick);
+
+	if (rowcol == "row"){
+		start = col * (rownr-1);
+		max = col;
+	}
+	else if(rowcol == "col"){
+		start = rownr - 1;
+		mult =col;
+		max = count / col;
+	}
+
+	for(i=0 ; i < max ; i++){
+
+		var j = start + mult * i
+		var field = 'document.getElementById("'+j+'")' ;//building the fitting element selector
+		var y = eval(field);
+		y.style.backgroundColor = z;//changing color to the selectet value
+
+	}
+
+}
 function def(){//used to reset the page to defaukt values and apply them to the picture
  	
-	var bcol = "#eeeeee"
 
-	document.forms["ogr"].reset()
-	document.forms["weight"].reset()
- 	document.forms["gap"].reset()
- 	document.forms["pad"].reset()
-	document.forms["recsize"].reset()
- 	document.forms["rsize"].reset()
- 	document.forms["grad"].reset()
+	document.forms["input"].reset()
 
- 	document.getElementById("color2").value=bcol;
- 	document.getElementById("color").value=bcol;
-	document.getElementById("ocol").value=bcol;
-	document.getElementById("ocol2").value=bcol;
-
- 	background();
+ 	bcol();
  	padchanger();
  	gapchanger();
- 	buttonmaker();
+  	buttonmaker();
  	sizechanger();
- 	opa();
+ 	opac();
 
  	for(i=1 ; i < 16 ; i++){//making the letters of the random button black
 		var field = 'document.getElementById("r'+i+'")' ;
@@ -248,13 +320,13 @@ function def(){//used to reset the page to defaukt values and apply them to the 
 
 function wei(){//for creating the weightet colors
 
-	var x = Number(document.forms["weight"]["exp"].value);//the exponent used for it
-	var color = document.forms["weight"]["color"].value;
+	var x = Number(document.forms["input"]["exp"].value);//the exponent used for it
+	var color = document.forms["input"]["colour"].value;
 	var max = count;//counting how many fields are colored for the row/column selection
 	var mult = 1 ;//used to multiply the running index so fields are skipped until the one in the same column again
 	var start = 0 ;//when coloring rows and columns this is used to start at the right element; defaults of all these are set for coloring everything
-	var rowcol = document.forms["weight"]["rowcol"].value;//determins wether rows or columns should be colored
-	var rownr = Number(document.forms["weight"]["rownr"].value);
+	var rowcol = document.forms["input"]["rowcol"].value;//determins wether rows or columns should be colored
+	var rownr = Number(document.forms["input"]["rownr"].value);
 
 	if (rowcol == "row"){
 		start = col * (rownr-1);

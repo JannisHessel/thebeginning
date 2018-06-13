@@ -47,3 +47,32 @@ h1{
 	font-size:1px;/*font size determins the minimum width of buttons*/
 	padding:0px;
 }
+.colbox button{
+	border-radius: 50%;
+	border:1px solid black;
+	background-color: white;
+	padding:0px;
+	width:18px;
+	font-size: 14px;
+}
+.colbox{
+	width:70px;
+	text-align: center;
+}
+.colbox input{
+	vertical-align: text-bottom;
+	margin:0;
+}
+#colorpallet{
+	display:flex;
+	flex-wrap: wrap;
+	border:2px solid black;
+	padding:10px;
+}
+fieldset{
+	display:none;
+}
+nav{
+	display:flex;
+	justify-content: space-around;
+}

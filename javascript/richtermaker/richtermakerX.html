@@ -14,7 +14,7 @@
 
 	<h1>Make your own Gerhard Richter painting</h1>
 
-	<form name = "rsize"><!--the form to collect the size of the richter-->
+<form name="input"><!--the form to collect the size of the richter-->
 
 		<label>Pick the number of rows!</label>
 		<input type="number" name="rows" min=1 max=200 value="5">
@@ -24,10 +24,17 @@
 
 		<input type="button" onclick="buttonmaker()" value="create a field of rectagles">
 
-	</form><br>
-	<hr>
+	<nav>
+		<button type="button" onclick="hide('sizing')">Advanced sizing options</button>
+		<button type="button" onclick="hide('random')">Advanced randomizer options</button>
+		<button type="button" onclick="hide('background')">For-and Background options</button>
+		<button type="button" onclick="hide('color')">Advanced coloring options</button>
+	</nav>
 
-	<form name = "recsize">
+	<fieldset id="sizing">	
+
+
+		<legend>Sizing options</legend>
 
 		<label>Pick a Height for the rectangles</label>
 		<input type="number" name="rihei" min=1 max=300 value="40">
@@ -35,34 +42,30 @@
 		<label>Pick a width for the rectangles</label>
 		<input type="number" name="riwi" min=1 max=300 value="40">	
 
-		<input type="button" onclick="sizechanger()" value="change sizes">
+		<input type="button" onclick="sizechanger()" value="change sizes"><br>
 
-	</form>
 
-	<form name="gap">
 
 		<label>pick a size for the vertical gap</label>
 		<input type="number" name="vgap" min = 0 max=300 value="5">
 		<label>pick a size for the horizontal gap</label>
 		<input type="number" name="hgap" min = 0 max=300 value="5">
 
-		<input type="button" onclick="gapchanger()" value="change the gap">
-
-	</form>
-
-	<form name="pad">
+		<input type="button" onclick="gapchanger()" value="change the gap"><br>
 
 		<label>pick a size for the surrounding</label>
 		<input type="number" name="pad" min = 0 max=300 value="10">
 
 		<input type="button" onclick="padchanger()" value="change the padding">
 
-	</form>
-	<hr>
-	<form  name="weight">
+	</fieldset>
 
 
-		<select name="color">
+	<fieldset id="random">
+
+		<legend>advanced randomizer options</legend>
+
+		<select name="colour">
 			<option value="white" selected>White</option>
 			<option value="black">Black</option>
 			<option value="red">Red</option>
@@ -81,45 +84,80 @@
 		<label>Which column or row do you want to color?</label><input type="number" name="rownr" value="1"><br>
 
 		<input type="button" onclick="wei()" value="create weightet colors">
-	</form>
 
-	<hr>
+ </fieldset>
 
-	<input type="color" id="ocol" value="#eeeeee">
-	<button onclick="over()">Change overlay color to the first one</button>
-	<input type="color" id="ocol2" value="#eeeeee">
-	<button onclick="ovgr()">Change overlay color to a gradient between the 2 colors</button>
-	<form name="ogr">
-		<label>Choose the direction of the gradient:</label>
+
+
+	<fieldset id="background">
+
+		<legend>For- and background options</legend>
+		<input type="color" name="ocol" value="#eeeeee">
+		<button type="button" onclick="over()">Change overlay color to the first one</button>
+		<input type="color" name="ocol2" value="#eeeeee">
+		<button  type="button" onclick="ovgr()">Change overlay color to a gradient between the 2 colors</button><br>
+
+		<label>Choose the direction of the gradient:</label><br>
 		<input type="radio" name="ogr" value="tb" checked="checked"><label>from top to bottom</label>
 		<input type="radio" name="ogr" value="lr"><label>from left to right</label>
 		<input type="radio" name="ogr" value="dia"><label>diagonally to bottom right</label>
 		<input type="radio" name="ogr" value="adia"><label>the other diagonal</label>
 		<input type="radio" name="ogr" value="rad"><label>radially around the center</label><br>
+
 		<input type="text" name="opa" value="0"><label>pick a foreground opacity(0 invisible-> 1 fully opacid)</label>
-	</form>
-	<button onclick="opa()">Change the foreground opacity</button><br>
+		<button type="button" onclick="opac()">Change the foreground opacity</button><br>
 	
+		<hr>
 
+		<input type="color" name="bcolor" value="#eeeeee">
+		<button type="button" onclick="bcol()">Change background color to the first one</button>
+		<input type="color" name="bcolor2" value="#eeeeee">
+		<button type="button" onclick="bgradient()">Change background color to a gradient between the 2 colors</button><br>
 
-	<input type="color" id="color" value="#eeeeee">
-	<button onclick="background()">Change background color to the first one</button>
-	<input type="color" id="color2" value="#eeeeee">
-	<button onclick="bgradient()">Change background color to a gradient between the 2 colors</button>
-	<form name="grad">
-		<label>Choose the direction of the gradient:</label>
+		<label>Choose the direction of the gradient:</label><br>
+
 		<input type="radio" name="grad" value="tb" checked="checked"><label>from top to bottom</label>
 		<input type="radio" name="grad" value="lr"><label>from left to right</label>
 		<input type="radio" name="grad" value="dia"><label>diagonally to bottom right</label>
 		<input type="radio" name="grad" value="adia"><label>the other diagonal</label>
 		<input type="radio" name="grad" value="rad"><label>radially around the center</label>
-	</form>
+	</fieldset>
+
+</form>
+
+<form name="color">
+
+	<fieldset id="color">
+		<legend>advanced coloring options</legend>
+		<button type="button" onclick="colormaker()">make a new color</button>
+		<div id="colorpallet">
+			<div class="colbox">
+				<input type="color" name="col0" id="col0">
+				<input type="radio" name="pallet" value="col0">
+				<button type="button" onclick="colorremover(0)">X</button>
+			</div>
+		</div>
+		<label>Select the original color at the bottom</label><input type="radio" name="pallet" value="col" checked="checked"><br>
 
 
-	<p>the squares change color to the first one on click</p>
+
+		<input type="radio" name="rowcol" value="all" checked="checked"><label>Color everything</label>
+		<input type="radio" name="rowcol" value="col"><label>Color Columns</label>
+		<input type="radio" name="rowcol" value="row"><label>Color Rows</label><br>
+		<label>Which column or row do you want to color?</label><input type="number" name="rownr" value="1"><br>
+
+		<input type="button" onclick="allcol()" value="color target area">
+
+	</fieldset>
+
+
+	<label>The fields change color to the selectet one on click</label><input type="color" name="col">
+</form>
+
+
 
 	<button id="r"><!-- button to call the random-color function randomizer-->
-		<span id="r1">R</span><!-- every letter gets a span so they all can gchange color -->
+		<span id="r1">R</span><!-- every letter gets a span so they all can change color -->
 		<span id="r2">a</span>
 		<span id="r3">n</span>
 		<span id="r4">d</span>
@@ -172,34 +210,35 @@
 	</div>
 
 	<div id="over">
-		<button onclick='changecolor(0)'></button>
-		<button onclick='changecolor(1)'></button>
-		<button onclick='changecolor(2)'></button>
-		<button onclick='changecolor(3)'></button>
-		<button onclick='changecolor(4)'></button>
-		<button onclick='changecolor(5)'></button>
-		<button onclick='changecolor(6)'></button>
-		<button onclick='changecolor(7)'></button>
-		<button onclick='changecolor(8)'></button>
-		<button onclick='changecolor(9)'></button>
-		<button onclick='changecolor(10)'></button>
-		<button onclick='changecolor(11)'></button>
-		<button onclick='changecolor(12)'></button>
-		<button onclick='changecolor(13)'></button>
-		<button onclick='changecolor(14)'></button>
-		<button onclick='changecolor(15)'></button>
-		<button onclick='changecolor(16)'></button>
-		<button onclick='changecolor(17)'></button>
-		<button onclick='changecolor(18)'></button>
-		<button onclick='changecolor(19)'></button>
-		<button onclick='changecolor(20)'></button>
-		<button onclick='changecolor(21)'></button>
-		<button onclick='changecolor(22)'></button>
-		<button onclick='changecolor(23)'></button>
-		<button onclick='changecolor(24)'></button>
+		<button id='o0' onclick='changecolor(0)'></button>
+		<button id='o1' onclick='changecolor(1)'></button>
+		<button id='o2' onclick='changecolor(2)'></button>
+		<button id='o3' onclick='changecolor(3)'></button>
+		<button id='o4' onclick='changecolor(4)'></button>
+		<button id='o5' onclick='changecolor(5)'></button>
+		<button id='o6' onclick='changecolor(6)'></button>
+		<button id='o7' onclick='changecolor(7)'></button>
+		<button id='o8' onclick='changecolor(8)'></button>
+		<button id='o9' onclick='changecolor(9)'></button>
+		<button id='o10' onclick='changecolor(10)'></button>
+		<button id='o11' onclick='changecolor(11)'></button>
+		<button id='o12' onclick='changecolor(12)'></button>
+		<button id='o13' onclick='changecolor(13)'></button>
+		<button id='o14' onclick='changecolor(14)'></button>
+		<button id='o15' onclick='changecolor(15)'></button>
+		<button id='o16' onclick='changecolor(16)'></button>
+		<button id='o17' onclick='changecolor(17)'></button>
+		<button id='o18' onclick='changecolor(18)'></button>
+		<button id='o19' onclick='changecolor(19)'></button>
+		<button id='o20' onclick='changecolor(20)'></button>
+		<button id='o21' onclick='changecolor(21)'></button>
+		<button id='o22' onclick='changecolor(22)'></button>
+		<button id='o23' onclick='changecolor(23)'></button>
+		<button id='o24' onclick='changecolor(24)'></button>
 	</div>
 
 </div>
+
 
 </body>
 
