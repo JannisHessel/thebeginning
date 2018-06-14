@@ -5,6 +5,9 @@ var rihei = 40 // height
 var vgap = 5 // grid gap of the grid
 var colcount = 1 //count of colors in the pallet
 
+
+//always available functions
+
 function hide(x){//function to hide toggle the advanced options
 
 	var field = 'document.getElementById("'+x+'")' ;//made so 1 function can be used for multiple elements
@@ -50,6 +53,7 @@ function buttonmaker(){
 	var columns = ""
 
 	for ( var i=0 ; i < col ; i++){//giving the number of columns to the grids
+
 	  columns += " 1fr";
 	}
 	r.style.gridTemplateColumns = columns
@@ -59,6 +63,7 @@ function buttonmaker(){
 	r.style.width = width + "px"//giving apropriate width to the grid;overlay doesnt need a width because it follows the wrapper div
 		
 	for ( var i=0 ; i <count; i++) {//creating numbered buttons that get colored
+
 		text += "<button id='"+i+"'></button>"
 	}
 
@@ -66,8 +71,10 @@ function buttonmaker(){
 	text = ""
 
 	for ( var i=0 ; i <count; i++) {//creating numbered buttons that give their number to the function they call right over the fields i color
+
 		text += "<button id='o"+i+"' onclick='changecolor("+i+")'></button>"
 	}
+
 	o.innerHTML = text ;
 
 	if( riwi != 40 || rihei != 40){
@@ -101,6 +108,33 @@ function randbutton(){//gives the randomize colors button random colors
 	}
 }
 
+function def(){//used to reset the page to defaukt values and apply them to the picture
+ 	
+
+	document.forms["input"].reset()
+
+ 	bcol();
+ 	padchanger();
+ 	gapchanger();
+  	buttonmaker();
+ 	sizechanger();
+ 	opac();
+
+ 	for(i=1 ; i < 16 ; i++){//making the letters of the random button black
+
+		var field = 'document.getElementById("r'+i+'")' ;
+		var y = eval(field);
+		var color = "rgb(0,0,0)"
+		y.style.color =  color;
+	};
+};
+
+
+
+
+
+//sizing functions
+
 function sizechanger(){
 
 	riwi = Number(document.forms["input"]["riwi"].value);
@@ -118,16 +152,20 @@ function sizechanger(){
 
 		var field = 'document.getElementById("'+i+'")' ;//looping through the squares to change sizes similar to random colors
 		var y = eval(field);
+
 		y.style.height = rihei + "px";
 		y.style.width = riwi + "px" ;
+
 		field = 'document.getElementById("o'+i+'")' ;//looping through the squares to change sizes similar to random colors
 		y = eval(field);
+
 		y.style.height = rihei + "px";
 		y.style.width = riwi + "px" ;
 	};
 
 	var r = document.getElementById('richterbox');
 	var width = ( riwi + vgap ) * col - vgap;//resizing the grid to the apropriate size
+
 	r.style.width = width + "px";
 };
 
@@ -137,8 +175,10 @@ function gapchanger(){
 	var hgap = Number(document.forms["input"]["hgap"].value);
 	var r = document.getElementById('richterbox');
 	var o = document.getElementById('over');
+
 	o.style.gridGap = hgap + "px " + vgap +"px";
 	r.style.gridGap = hgap + "px " + vgap +"px";
+
 	var width = ( riwi + vgap ) * col - vgap;//setting a new grid gap requites resizing of the grid
 	r.style.width = width + "px";
 };
@@ -148,16 +188,26 @@ function padchanger(){
 	var pad = Number(document.forms["input"]["pad"].value);
 	var o = document.getElementById('over');
 	var r = document.getElementById('richterbox');
+
 	r.style.padding = pad + "px";
 	o.style.padding = pad + "px";
 
 };
+
+
+
+
+
+
+
+//for- and background functions
 
 function bcol(){
 
 	var r = document.getElementById('richterbox');
 	var z = document.forms["input"]["bcolor"].value;
 	var bg = "linear-gradient("+z+","+z+")"//needs to change the background gradient because the gradient overwrites background color
+
 	r.style.background = bg;
 
 };
@@ -171,18 +221,23 @@ function bgradient(){
 	var bg
 
 	if(gr=="tb"){//picking out the option for the background
+
 		bg = "linear-gradient("+z+","+y+")"
 	}
 	else if(gr=="lr"){
+
 		bg = "linear-gradient(to right,"+z+","+y+")"
 	}
 	else if(gr=="dia"){
+
 		bg = "linear-gradient(to bottom right,"+z+","+y+")"
 	}
 	else if(gr=="adia"){
+
 		bg = "linear-gradient(to bottom left,"+z+","+y+")"
 	}
 	else{
+
 		bg = "radial-gradient("+z+","+y+")"
 	}
 
@@ -195,6 +250,7 @@ function over(){
 	var r = document.getElementById('over');
 	var z = document.forms["input"]["ocol"].value;
 	var bg = "linear-gradient("+z+","+z+")"//needs to change the background gradient because the gradient overwrites background color
+
 	r.style.background = bg;
 
 };
@@ -208,18 +264,23 @@ function ovgr(){
 	var bg
 
 	if(gr=="tb"){//picking out the option for the background
+
 		bg = "linear-gradient("+z+","+y+")"
 	}
 	else if(gr=="lr"){
+
 		bg = "linear-gradient(to right,"+z+","+y+")"
 	}
 	else if(gr=="dia"){
+
 		bg = "linear-gradient(to bottom right,"+z+","+y+")"
 	}
 	else if(gr=="adia"){
+
 		bg = "linear-gradient(to bottom left,"+z+","+y+")"
 	}
 	else{
+
 		bg = "radial-gradient("+z+","+y+")"
 	}
 
@@ -230,8 +291,15 @@ function opac(){
 
 		var opa = document.forms["input"]["opa"].value;
 		var r = document.getElementById('over');
+
 		r.style.opacity = opa
 }
+
+
+
+
+
+//colorpallet functions
 
 function colormaker(){
 	document.getElementById("colorpallet").insertAdjacentHTML('beforeend', '<div class="colbox"><input type="color" name="col'+colcount+'" id="col'+colcount+'"><input type="radio" name="pallet" value="col'+colcount+'"><button type="button" onclick="colorremover('+colcount+')">X</button></div>')
@@ -244,15 +312,20 @@ function colorremover(x){//removes the xth colorfield made by the function above
 	var helper
 	var newinner =""
 	var colors =""
+
 	for(i=0; i<colcount ;i++){//reading out all the colors into a string
+
 		if(i != x){
+
 			helper ='document.forms["color"]["col'+i+'"].value'
 			colors += eval(helper)
 		}
 	}
 
 	colcount --
+
 	for(i=0; i<colcount ;i++){//making a new set of buttons which is 1 less
+
 		newinner += '<div class="colbox"><input type="color" name="col'+i+'" id="col'+i+'"><input type="radio" name="pallet" value="col'+i+'"><button type="button" onclick="colorremover('+i+')">X</button></div>'
 	}
 	
@@ -260,12 +333,14 @@ function colorremover(x){//removes the xth colorfield made by the function above
 	document.getElementById("colorpallet").innerHTML = newinner
 
 	for(i=0; i<colcount ; i++){//reading out the colors from the string and putting them in the new input fields
+
 		helper = 'document.getElementById("col'+i+'")'
 		x = eval(helper)
 		helper = colors.substring(7*i,7*(i+1))
 		x.value = helper
 	}
 }
+
 function allcol(){
 
 	var max = count;//counting how many fields are colored for the row/column selection
@@ -279,10 +354,12 @@ function allcol(){
 	var z = eval(pick);
 
 	if (rowcol == "row"){
+
 		start = col * (rownr-1);
 		max = col;
 	}
 	else if(rowcol == "col"){
+
 		start = rownr - 1;
 		mult =col;
 		max = count / col;
@@ -298,25 +375,19 @@ function allcol(){
 	}
 
 }
-function def(){//used to reset the page to defaukt values and apply them to the picture
- 	
 
-	document.forms["input"].reset()
+function popup {
 
- 	bcol();
- 	padchanger();
- 	gapchanger();
-  	buttonmaker();
- 	sizechanger();
- 	opac();
+	var html = "<html><header><title>Your color selection</title><style>"
+	html +=".colorcollection{display:flex;flex-wrap:wrap;justify-content:space-around;}"
+	html +=".color{height:200px;width:150px;}"
 
- 	for(i=1 ; i < 16 ; i++){//making the letters of the random button black
-		var field = 'document.getElementById("r'+i+'")' ;
-		var y = eval(field);
-		var color = "rgb(0,0,0)"
-		y.style.color =  color;
-	};
-};
+	for(i=0;i<colcount;i++)
+}
+
+
+
+//for the advanced randomizer
 
 function wei(){//for creating the weightet colors
 
@@ -329,10 +400,12 @@ function wei(){//for creating the weightet colors
 	var rownr = Number(document.forms["input"]["rownr"].value);
 
 	if (rowcol == "row"){
+
 		start = col * (rownr-1);
 		max = col;
 	}
 	else if(rowcol == "col"){
+
 		start = rownr - 1;
 		mult =col;
 		max = count / col;
@@ -344,12 +417,15 @@ function wei(){//for creating the weightet colors
 		for(i=0 ; i < max ; i++){
 
 			var j = start + mult * i
+
 			var r = Math.floor(Math.pow(Math.random(),x)*256);//a number moves closet to one if a exponent between 0 and 1 is applied to it so the color value goes closer to 255, and even mor eif the exponent is closer to 0
 			var g = Math.floor(Math.pow(Math.random(),x)*256);// and even mor eif the exponent is closer to 0
 			var b = Math.floor(Math.pow(Math.random(),x)*256);//making all colors values closer to 255 makes the color close to white
+
 			var color = "rgb(" + r + "," + g + "," + b + ")";
 			var field = 'document.getElementById("'+j+'")' ;
 			var y = eval(field);
+
 			y.style.backgroundColor = color
 		}
 	}
@@ -359,12 +435,15 @@ function wei(){//for creating the weightet colors
 		for(i=0 ; i < max ; i++){
 
 			var j = start + mult * i
+
 			var r = Math.floor((1 - Math.pow(Math.random(),x))*256);//-1 a number close to 1 is close to 0 so the color vslue is closer to 0 analog to above
 			var g = Math.floor((1 - Math.pow(Math.random(),x))*256);//making all colors close to 0 makes it go closer to black
 			var b = Math.floor((1 - Math.pow(Math.random(),x))*256);
+
 			var color = "rgb(" + r + "," + g + "," + b + ")";
 			var field = 'document.getElementById("'+j+'")' ;
 			var y = eval(field);
+
 			y.style.backgroundColor = color
 		}
 	}
@@ -374,12 +453,15 @@ function wei(){//for creating the weightet colors
 		for(i=0 ; i < max ; i++){
 
 			var j = start + mult * i
+
 			var r = Math.floor(Math.pow(Math.random(),x)*256);//making the red value closer to 255 and the others closer to 0 makes it red
 			var g = Math.floor((1 - Math.pow(Math.random(),x))*256);
 			var b = Math.floor((1 - Math.pow(Math.random(),x))*256);
+
 			var color = "rgb(" + r + "," + g + "," + b + ")";
 			var field = 'document.getElementById("'+j+'")' ;
 			var y = eval(field);
+
 			y.style.backgroundColor = color
 		}
 	}
