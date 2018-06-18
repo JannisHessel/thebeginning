@@ -13,7 +13,7 @@ function hide(x){//function to hide toggle the advanced options
 	var field = 'document.getElementById("'+x+'")' ;//made so 1 function can be used for multiple elements
 	var y = eval(field)
 
-	if(y.style.display === "block"){
+	if(y.style.display == "block"){
 		y.style.display = "none"
 	}
 	else{
@@ -259,8 +259,8 @@ function ovgr(){
 
 	var gr = document.forms["input"]["ogr"].value;//radio to pick which kind of gradient
 	var r = document.getElementById('over');
-	var y = document.forms["input"]["ocol"].value;
-	var z = document.forms["input"]["ocol2"].value;
+	var y = document.forms["input"]["ocol2"].value;
+	var z = document.forms["input"]["ocol"].value;
 	var bg
 
 	if(gr=="tb"){//picking out the option for the background
@@ -376,13 +376,42 @@ function allcol(){
 
 }
 
-function popup {
+function colorout() {
 
-	var html = "<html><header><title>Your color selection</title><style>"
-	html +=".colorcollection{display:flex;flex-wrap:wrap;justify-content:space-around;}"
-	html +=".color{height:200px;width:150px;}"
+	var nr
+	var color
+	var helper
+	var pop = "<html><head><title>Your color selection</title><style>";
+	pop += ".colorcollection{display:flex;flex-wrap:wrap;justify-content:space-around;}";
+	pop += ".color{height:200px;width:150px;text-align:center;font-weight:bold;font-size:20px}";
 
-	for(i=0;i<colcount;i++)
+	for(i=0;i<colcount;i++){
+
+		helper = 'document.forms["color"]["col'+i+'"].value'
+		color = eval(helper)
+		nr = 0
+
+		if(color.substring(1,2)>"6" || color.substring(3,4)>"6" || color.substring(5,6)>"a"){
+			pop += "#c"+i+"{background-color:"+color+";}"
+		}
+		else{
+			pop += "#c"+i+"{background-color:"+color+";color:#fff}"
+		}
+	}
+
+	pop += "</style></head><body><div class='colorcollection'>"
+
+	for(i=0;i<colcount;i++){
+
+		helper = 'document.forms["color"]["col'+i+'"].value'
+		color = eval(helper)
+		pop += '<div id="c'+i+'" class="color">'+color+'</div>'
+	}
+
+	pop += '</div></body></html>'
+	var w = window.open()
+	w.document.write(pop)
+	w.document.close()
 }
 
 

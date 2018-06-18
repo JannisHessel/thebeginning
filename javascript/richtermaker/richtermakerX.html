@@ -130,6 +130,7 @@
 	<fieldset id="color">
 		<legend>advanced coloring options</legend>
 		<button type="button" onclick="colormaker()">make a new color</button>
+		
 		<div id="colorpallet">
 			<div class="colbox">
 				<input type="color" name="col0" id="col0">
@@ -137,7 +138,10 @@
 				<button type="button" onclick="colorremover(0)">X</button>
 			</div>
 		</div>
-		<label>Select the original color at the bottom</label><input type="radio" name="pallet" value="col" checked="Defaultcg"><br>
+
+		<button type="button" onclick="colorout()">output colot pallet</button>
+		<label>Select the original color at the bottom</label><input type="radio" name="pallet" value="col" checked="checked"><br>
+
 
 
 
