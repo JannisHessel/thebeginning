@@ -112,6 +112,7 @@ function def(){//used to reset the page to defaukt values and apply them to the 
  	
 
 	document.forms["input"].reset()
+	document.getElementById("basecol").value="#eeeeee"
 
  	bcol();
  	padchanger();
@@ -252,6 +253,7 @@ function over(){
 	var bg = "linear-gradient("+z+","+z+")"//needs to change the background gradient because the gradient overwrites background color
 
 	r.style.background = bg;
+	opac();
 
 };
 
@@ -285,6 +287,7 @@ function ovgr(){
 	}
 
 	r.style.background = bg;
+	opac();
 };
 
 function opac(){

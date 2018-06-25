@@ -76,3 +76,15 @@ nav{
 	display:flex;
 	justify-content: space-around;
 }
+label{
+	border:2px solid rgba(0,0,0,0);
+}
+label input{
+	vertical-align: text-bottom;
+}
+label:hover{
+	border: 2px solid blue;
+}
+label:active{
+	background-color: lightblue;
+}

@@ -16,10 +16,10 @@
 
 <form name="input"><!--the form to collect the size of the richter-->
 
-		<label>Pick the number of rows!</label>
+		Pick the number of rows!
 		<input type="number" name="rows" min=1 max=200 value="5">
 
-		<label>Pick the number of columns!</label>
+		Pick the number of columns!
 		<input type="number" name="columns" min=1 max=200 value="5">
 
 		<input type="button" onclick="buttonmaker()" value="create a field of rectagles">
@@ -36,24 +36,24 @@
 
 		<legend>Sizing options</legend>
 
-		<label>Pick a Height for the rectangles</label>
+		Pick a Height for the rectangles:
 		<input type="number" name="rihei" min=1 max=300 value="40">
 
-		<label>Pick a width for the rectangles</label>
+		Pick a width for the rectangles:
 		<input type="number" name="riwi" min=1 max=300 value="40">	
 
 		<input type="button" onclick="sizechanger()" value="change sizes"><br>
 
 
 
-		<label>pick a size for the vertical gap</label>
+		Pick a size for the vertical gap:
 		<input type="number" name="vgap" min = 0 max=300 value="5">
-		<label>pick a size for the horizontal gap</label>
+		Pick a size for the horizontal gap:
 		<input type="number" name="hgap" min = 0 max=300 value="5">
 
 		<input type="button" onclick="gapchanger()" value="change the gap"><br>
 
-		<label>pick a size for the surrounding</label>
+		Pick a size for the surrounding:
 		<input type="number" name="pad" min = 0 max=300 value="10">
 
 		<input type="button" onclick="padchanger()" value="change the padding">
@@ -75,13 +75,13 @@
 			<option value="purple">Purple</option>
 			<option value="tur">Turquoise</option>
 		</select>
-		<label>how hard you want to go towards the color? (0->only the color;1->normal random)</label>
+		How hard you want to go towards the color? (0->only the color;1->normal random)
 		<input type="text" value="1" name="exp"><br>
 
-		<input type="radio" name="rowcol" value="all" checked="checked"><label>Color everything</label>
-		<input type="radio" name="rowcol" value="col"><label>Color Columns</label>
-		<input type="radio" name="rowcol" value="row"><label>Color Rows</label><br>
-		<label>Which column or row do you want to color?</label><input type="number" name="rownr" value="1"><br>
+		<label><input type="radio" name="rowcol" value="all" checked="checked">Color everything</label>
+		<label><input type="radio" name="rowcol" value="col">Color Columns</label>
+		<label><input type="radio" name="rowcol" value="row">Color Rows</label><br>
+		Which column or row do you want to color?<input type="number" name="rownr" value="1"><br>
 
 		<input type="button" onclick="wei()" value="create weightet colors">
 
@@ -97,14 +97,14 @@
 		<input type="color" name="ocol2" value="#eeeeee">
 		<button  type="button" onclick="ovgr()">Change overlay color to a gradient between the 2 colors</button><br>
 
-		<label>Choose the direction of the gradient:</label><br>
-		<input type="radio" name="ogr" value="tb" checked="checked"><label>from top to bottom</label>
-		<input type="radio" name="ogr" value="lr"><label>from left to right</label>
-		<input type="radio" name="ogr" value="dia"><label>diagonally to bottom right</label>
-		<input type="radio" name="ogr" value="adia"><label>the other diagonal</label>
-		<input type="radio" name="ogr" value="rad"><label>radially around the center</label><br>
+		Choose the direction of the gradient:<br>
+		<label><input type="radio" name="ogr" value="tb" checked="checked">from top to bottom</label>
+		<label><input type="radio" name="ogr" value="lr">from left to right</label>
+		<label><input type="radio" name="ogr" value="dia">diagonally to bottom right</label>
+		<label><input type="radio" name="ogr" value="adia">the other diagonal</label>
+		<label><input type="radio" name="ogr" value="rad">radially around the center</label><br>
 
-		<input type="text" name="opa" value="0"><label>pick a foreground opacity(0 invisible-> 1 fully opacid)</label>
+		<input type="text" name="opa" value="0">Pick a foreground opacity(0 invisible-> 1 fully opacid)
 		<button type="button" onclick="opac()">Change the foreground opacity</button><br>
 	
 		<hr>
@@ -114,13 +114,13 @@
 		<input type="color" name="bcolor2" value="#eeeeee">
 		<button type="button" onclick="bgradient()">Change background color to a gradient between the 2 colors</button><br>
 
-		<label>Choose the direction of the gradient:</label><br>
+		Choose the direction of the gradient:<br>
 
-		<input type="radio" name="grad" value="tb" checked="checked"><label>from top to bottom</label>
-		<input type="radio" name="grad" value="lr"><label>from left to right</label>
-		<input type="radio" name="grad" value="dia"><label>diagonally to bottom right</label>
-		<input type="radio" name="grad" value="adia"><label>the other diagonal</label>
-		<input type="radio" name="grad" value="rad"><label>radially around the center</label>
+		<label><input type="radio" name="grad" value="tb" checked="checked">from top to bottom</label>
+		<label><input type="radio" name="grad" value="lr">from left to right</label>
+		<label><input type="radio" name="grad" value="dia">diagonally to bottom right</label>
+		<label><input type="radio" name="grad" value="adia">the other diagonal</label>
+		<label><input type="radio" name="grad" value="rad">radially around the center</label>
 	</fieldset>
 
 </form>
@@ -140,22 +140,22 @@
 		</div>
 
 		<button type="button" onclick="colorout()">output colot pallet</button>
-		<label>Select the original color at the bottom</label><input type="radio" name="pallet" value="col" checked="checked"><br>
+		<label>Select the original color at the bottom<input type="radio" name="pallet" value="col" checked="checked" id="orig"></label><br>
 
 
 
 
-		<input type="radio" name="rowcol" value="all" checked="checked"><label>Color everything</label>
-		<input type="radio" name="rowcol" value="col"><label>Color Columns</label>
-		<input type="radio" name="rowcol" value="row"><label>Color Rows</label><br>
-		<label>Which column or row do you want to color?</label><input type="number" name="rownr" value="1"><br>
+		<label><input type="radio" name="rowcol" value="all" checked="checked">Color everything</label>
+		<label><input type="radio" name="rowcol" value="col">Color Columns</label>
+		<label><input type="radio" name="rowcol" value="row">Color Rows</label><br>
+		Which column or row do you want to color?<input type="number" name="rownr" value="1"><br>
 
 		<input type="button" onclick="allcol()" value="color target area">
 
 	</fieldset>
 
 
-	<label>The fields change color to the selectet one on click</label><input type="color" name="col">
+	The fields change color to the selectet one on click:<input type="color" name="col" id="basecol"><label for="orig">Click to select this one again</label>
 </form>
 
 
