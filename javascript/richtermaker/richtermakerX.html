@@ -161,7 +161,7 @@
 
 
 	<button id="r"><!-- button to call the random-color function randomizer-->
-		<span id="r1">R</span><!-- every letter gets a span so they all can change color -->
+		<span id="r1">R</span><!-- every letter gets a span so they all can change color individually-->
 		<span id="r2">a</span>
 		<span id="r3">n</span>
 		<span id="r4">d</span>
@@ -186,7 +186,7 @@
 <div id="wrap">
 
 	<div id="richterbox"><!--the grid for the squares-->
-		<button id='0'></button>
+		<button id='0'></button><!-- those are still buttons because they were once active and the styling is still done for buttons -->
 		<button id='1'></button>
 		<button id='2'></button>
 		<button id='3'></button>
@@ -213,7 +213,7 @@
 		<button id='24'></button>
 	</div>
 
-	<div id="over">
+	<div id="over"><!-- i wantet to do a color overlay so that needs to have the active buttons or else the onclick does not work;the buttons all have opacity 0 so you dont see them -->
 		<button id='o0' onclick='changecolor(0)'></button>
 		<button id='o1' onclick='changecolor(1)'></button>
 		<button id='o2' onclick='changecolor(2)'></button>

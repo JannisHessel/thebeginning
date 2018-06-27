@@ -111,10 +111,10 @@ function randbutton(){//gives the randomize colors button random colors
 function def(){//used to reset the page to defaukt values and apply them to the picture
  	
 
-	document.forms["input"].reset()
-	document.getElementById("basecol").value="#eeeeee"
+	document.forms["input"].reset()//resetting all the form values
+	document.getElementById("basecol").value="#eeeeee"//the functions are going to read the forms so this is enough
 
- 	bcol();
+ 	bcol();//applying all the defaults to the field
  	padchanger();
  	gapchanger();
   	buttonmaker();
@@ -381,20 +381,18 @@ function allcol(){
 
 function colorout() {
 
-	var nr
-	var color
-	var helper
-	var pop = "<html><head><title>Your color selection</title><style>";
-	pop += ".colorcollection{display:flex;flex-wrap:wrap;justify-content:space-around;}";
-	pop += ".color{height:200px;width:150px;text-align:center;font-weight:bold;font-size:20px}";
+	var color //value of the color in the pallet
+	var helper//variable to puck out elements of the html
+	var pop = "<html><head><title>Your color selection</title><style>";//building the html for the popup
+	pop += ".colorcollection{display:flex;flex-wrap:wrap;justify-content:space-around;}";//the colors conna be displayed in a flexbox
+	pop += ".color{height:200px;width:150px;text-align:center;font-weight:bold;font-size:20px}";//font and size of the fields with colors
 
 	for(i=0;i<colcount;i++){
 
 		helper = 'document.forms["color"]["col'+i+'"].value'
 		color = eval(helper)
-		nr = 0
 
-		if(color.substring(1,2)>"6" || color.substring(3,4)>"6" || color.substring(5,6)>"a"){
+		if(color.substring(1,2)>"6" || color.substring(3,4)>"6" || color.substring(5,6)>"a"){//evaluating the brightness of the color to determen wether the text needs to be white or black to be readable
 			pop += "#c"+i+"{background-color:"+color+";}"
 		}
 		else{
@@ -408,7 +406,7 @@ function colorout() {
 
 		helper = 'document.forms["color"]["col'+i+'"].value'
 		color = eval(helper)
-		pop += '<div id="c'+i+'" class="color">'+color+'</div>'
+		pop += '<div id="c'+i+'" class="color">'+color+'</div>'//building the fields with apropriate class id and the hecs color written in it
 	}
 
 	pop += '</div></body></html>'
