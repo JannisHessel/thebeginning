@@ -157,7 +157,11 @@ void sorting (){
 bool fullnamereader (){//true if there was no file found becaus eits more plesant to code
 	fstream names;
 	string temp;//gets the lines 
-	names.open ( "fullnames.txt" , ios::in);
+	names.open ( "fullnames.txt" , ios::in);	
+	names.seekg(0, names.end);
+	namelist.reserve( names.tellg() );
+	names.seekg(0, names.beg);
+
 	if (  names.is_open()){
 		while ( getline(names, temp)){//getting a line from the name file
 			namelist.append(temp);//collecting all names in one string
