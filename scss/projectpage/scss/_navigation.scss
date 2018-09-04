@@ -1,0 +1,136 @@
+@import "presets";
+
+nav{
+  min-height: 60px;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  top:0;
+  width:100vw;
+}
+
+nav a{
+  display:none;
+  width:100px;
+  height:35px;
+  border-radius: 0 0 200% 200%;
+  text-align: center;
+  transition: width 1s, height 1s;
+  color: $leafgreen;
+  text-decoration:none;
+  text-shadow:1px 1px black;
+}
+
+nav a div{
+  width:100px;
+  height:35px;
+  margin:auto;
+  font-weight:bold;
+}
+
+nav:hover{
+  min-height:100px;
+}
+
+nav:hover a{
+  display: block;
+}
+
+nav a:hover{
+  width:400px;
+  height:150px;
+  flex-shrink:1;
+}
+
+.navindex{
+  background: center/cover url('../images/indexbg.jpg');
+}
+
+.navriver{
+  background: center/cover url('../images/riverbg.jpg');
+}
+
+.navlake{
+  background: center/cover url('../images/lakebg.jpg');
+}
+
+.navteu{
+  background: center/cover url('../images/teufelbg.jpg');
+}
+
+.navhigh{
+  background: center/cover url('../images/highbg.jpg');
+}
+
+.navsumm{
+  background: center/cover url('../images/summbg.jpg');
+}
+
+#navlabel{
+  display:none;
+}
+
+#navcheck{
+  display:none;
+}
+
+nav .location{
+  border-style:inset;
+}
+
+@media screen and (max-width:720px){
+
+
+  nav{
+    position:absolute;
+    flex-flow: column wrap;
+    height:unset;
+    background:rgba(255,255,255,0.3);
+    max-height:100vh;
+    display: block;
+
+
+    a {
+      display:block;
+      border-radius:50%;
+      position:relative;
+      left:0;
+      padding:10px;
+      height:unset;
+      width:200px;
+    }
+    a:not(.location){
+      display:none;
+    }
+    a:hover {
+      height:unset;
+      width:200px;
+      border:2px solid white;
+    }
+  }
+  nav:hover{
+    min-height:unset;
+  }
+
+  #navlabel{
+    display:block;
+    border:1px solid black;
+    border-radius:5px;
+    padding:5px 10px 10px 10px;
+    font-size:30px;
+    position:absolute;
+    right:5px;
+    top:5px;
+    background:rgba(255,255,255,0.2);
+  }
+  #navlabel:hover{
+    background:rgba(255,255,255,0.4);
+  }
+  #navcheck:checked + label {
+    background:rgba(255,255,255,0.6);
+  }
+  #navcheck:checked ~ a {
+    display:block;
+  }
+
+}

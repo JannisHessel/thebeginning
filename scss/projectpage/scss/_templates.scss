@@ -1,0 +1,313 @@
+@mixin articleswap($number,$color,$actcol,$hover) { //for a div in which $number different articles can be shown and swapped ;according html at the end
+
+  article {
+    display: none;
+    color:$color;
+  }
+  input {
+    display: none;
+  }
+  @for $i from 1 through $number {
+    input:nth-of-type(#{$i}):checked ~ article:nth-of-type(#{$i}) {//displaying the article corresponding to the checked radio
+      display: block;
+    }
+  }
+  @for $i from 1 through $number {
+    input:nth-of-type(#{$i}):checked ~ div label:nth-of-type(#{$i}) {//marking the appropriate label for the checked redio
+      font-style: italic;
+      font-weight: bold;
+      div{
+        border:5px solid $actcol;
+        padding:0;
+      }
+    }
+  }
+  div {
+    display: flex;
+    justify-content: center;
+    label {
+      padding: 10px;
+      border-radius: 30%;
+      color:$actcol;
+      div {
+        border: 3px solid $actcol;
+        width: 30px;
+        margin: 5px;
+        padding:2px;
+        border-radius: 10px;
+      }
+    }
+    label:hover {
+      background-color: $hover;
+    }
+  }
+}
+
+
+
+
+@mixin quiz($number,$color,$actcol,$hover){//for a quiz with $number questions
+  *{
+    color:$color;
+  }
+  input{
+    display:none;
+  }
+  div{
+    display:none;
+  }
+  div:first-of-type {
+    display:block;
+    height:50px;
+    img {
+      height: 50px;
+      display:none;
+    }
+  }
+  div label{
+    padding: 5px;
+    border:1px solid $actcol;
+    display:block;
+    &:hover{
+      background-color:$hover;
+      border:1px solid $actcol;
+    }
+  }
+  p{
+    display:none;
+  }
+  @for $i from $number*2+1 through $number*5+1{
+    input:nth-of-type(#{$i}):checked ~ div:nth-of-type(#{$i - $number * 2 + 1}) {//swapping between the questions and answers
+      display:block;
+    }
+  }
+  @for $i from 1 through $number {
+    input:nth-of-type(#{$i*2}):checked ~ div:nth-of-type(#{$i*3 + 1}) p{//displaying the wrong answers
+      display: block;
+    }
+  }
+  @for $i from 1 through $number {
+    input:nth-of-type(#{$i*2 - 1}):checked ~ div:nth-of-type(#{$i*3}) p{//displaying the correct answers
+      display: block;
+    }
+  }
+  @for $i from 1 through $number*2 {
+    input:nth-of-type(#{$i}):checked ~ div:first-of-type img:nth-of-type(#{$i}){//displaying happy or sad smielys
+      display:inline-block;
+    }
+  }
+}
+
+
+
+@mixin slide($width,$number,$color,$actcol,$hover){
+  width:$width;
+  overflow:hidden;
+  *{
+    color:$color;
+  }
+  .slidebox{//creating a container to slide arund in the viewbox
+    width:#{$width * $number};
+    display:flex;
+    -webkit-transition: margin-left 1s;
+    -moz-transition: margin-left 1s;
+    -o-transition: margin-left 1s;
+    transition: margin-left 1s;
+    &>div{
+      position: relative;
+      width:$width;
+      margin:0;
+      border: none;
+      vertical-align: text-top;
+      img{
+        width:$width;
+      }
+      p{
+        width:80%;
+        margin:auto;
+      }
+      label{//positioning the leftarrow and rightarrow labels
+        position:absolute;
+        font-size:30px;
+        border:2px solid rgba(0,0,0,0);
+        top:calc(50% - 20px);
+        color:$actcol;
+        &:hover {
+          border: 2px solid $actcol;
+          background-color: $hover;
+        }
+      }
+      &:first-of-type label{//the only label in the first artivle needs to be pointing right
+        right:0;
+      }
+      @for $i from 2 through $number{//positioning all the other left and right arrows
+        &:nth-of-type(#{$i}) {
+          label:first-of-type {
+            left: 0;
+          }
+          label:nth-of-type(2) {
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+  @for $i from 1 through $number{
+    input:nth-of-type(#{$i}):checked ~ .slidebox{//positioning of the warpper according to wich button is pressed
+      margin-left:($i - 1) * $width * (-1);
+    }
+  }
+  & > div:last-of-type{//bottom selection of labels,either text or span for an anonymous marker
+    display: flex;
+    width:100%;
+    justify-content: center;
+    border:1px solid $color;
+      label {
+        border:2px solid rgba(0,0,0,0);
+        margin:0 10px;
+        color:$actcol;
+        padding:5px;
+        border-radius:3px;
+        &:hover{
+          border:2px solid $actcol;
+          background-color:$hover;
+        }
+        span {
+          border: 3px solid $actcol;
+          width: 30px;
+          margin: 5px;
+          padding:2px;
+          border-radius: 10px;
+          display:block;
+        }
+    }
+  }
+  @for $i from 1 through $number{//marking the selectet page in the labels
+    input:nth-of-type(#{$i}):checked ~ div:last-of-type > label:nth-of-type(#{$i}){
+      font-weight: bold;
+      font-style: italic;
+      span{
+        border:5px solid $actcol;
+        padding:0;
+      }
+    }
+  }
+
+}
+//label for a checkbox that pops out an image in given $direction and stays in position over a center /cover background-color
+//bgh/bgh beeing the picture ratio 
+//place in a position stativ top 50vh left 50vw div
+@mixin hoverlabel($imgsize,$labwidth,$labheight,$lableft,$labtop,$bgw,$bgh,$direction){
+  $bgratio:$bgw/$bgh;
+  cursor:pointer;
+  border-radius:50%;
+  position:absolute;
+  height:#{$labheight}vh;//positioning of the label for wode screens
+  width:#{$labwidth}vh;
+  left:#{$lableft}vh;
+  top:#{$labtop}vh;
+  img{
+    opacity:0;
+    position:absolute;
+    @if $direction == top{//posittioning the image towards the direction its gonna pop out in
+    top:0;
+    left:0;
+    height:#{0.5*$labheight}vh;
+    width:#{$labwidth}vh;
+    border-radius:100% 100% 0 0;
+    }
+    @if $direction == left {
+      top:0;
+      left:0;
+      height:#{$labheight}vh;
+      width:#{0.5 * $labwidth}vh;
+      border-radius:100% 0 0 100%;
+    }
+    @if $direction == bottom {
+      bottom:0;
+      left:0;
+      height:#{0.5*$labheight}vh;
+      width:#{$labwidth}vh;
+      border-radius:0 0 100% 100%;
+    }
+    @if $direction == right {
+      top:0;
+      right:0;
+      height:#{$labheight}vh;
+      width:#{0.5 * $labwidth}vh;
+      border-radius:0 100% 100% 0;
+    }
+
+    @include transition(all,1s);
+  }
+  &:hover{
+    border:1px solid white;
+    img{
+      display:block;
+      border-radius:100% 100% 100% 100%;
+      opacity:1;
+      height:#{$imgsize}vh;
+      width:#{$imgsize}vh;
+      @if $direction == top{//position of the popped out image
+        top:#{-($imgsize + 3)}vh;
+        left:#{($imgsize - $labwidth) / -2}vh;
+      }
+      @if $direction == left{
+        top:#{($imgsize - $labheight) / -2}vh;
+        left:#{-($imgsize + 3)}vh;
+      }      
+      @if $direction == bottom{
+        bottom:#{-($imgsize + 3)}vh;
+        left:#{($imgsize - $labwidth) / -2}vh;
+      }     
+      @if $direction == right{
+        top:#{($imgsize - $labheight) / -2}vh;
+        right:#{-($imgsize + 3)}vh;
+      }
+    }
+  }
+  @media ("min-aspect-ratio: #{$bgw}/#{$bgh}"){//samesame for high scrreens
+    height:#{$labheight / $bgratio}vw;
+    width:#{$labwidth / $bgratio}vw;
+    left:#{$lableft / $bgratio}vw;
+    top:#{$labtop / $bgratio}vw;
+    img{
+      @if $direction == top {
+        height:#{$labheight / $bgratio / 2}vw;
+        width:#{$labwidth / $bgratio}vw;
+      }
+      @if $direction == left {
+        height:#{$labheight / $bgratio}vw;
+        width:#{$labwidth / $bgratio / 2}vw;
+      }
+      @if $direction == bottom {
+        height:#{$labheight / $bgratio / 2}vw;
+        width:#{$labwidth / $bgratio}vw;
+      }
+      @if $direction == right {
+        height:#{$labheight / $bgratio}vw;
+        width:#{$labwidth / $bgratio / 2}vw;
+      }
+    }
+    &:hover img{
+      height:#{$imgsize / $bgratio}vw;
+      width:#{$imgsize / $bgratio}vw;
+      @if $direction == top{
+        top:#{-($imgsize + 3) / $bgratio}vw;
+        left:#{(($imgsize - $labwidth) / -2) / $bgratio}vw;
+      }
+      @if $direction == left{
+        top:#{(($imgsize - $labheight) / -2) / $bgratio}vw;
+        left:#{-($imgsize + 3) / $bgratio}vw;
+      }
+      @if $direction == bottom{
+        bottom:#{-($imgsize + 3) / $bgratio}vw;
+        left:#{(($imgsize - $labwidth) / -2) / $bgratio}vw;
+      }
+      @if $direction == right{
+        top:#{(($imgsize - $labheight) / -2) / $bgratio}vw;
+        right:#{-($imgsize + 3) / $bgratio}vw;
+      }
+    }
+  }
+}

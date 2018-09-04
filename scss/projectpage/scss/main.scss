@@ -1,0 +1,26 @@
+
+@import "navigation";
+@import "presets";
+@import "index";
+@import "global";
+@import "river";
+@import "lake";
+
+
+
+#lakewrap{
+  background-image:url('../images/lakebg.jpg');
+  @extend %wrap;
+}
+#teufelwrap{
+  background-image:url('../images/teufelbg.jpg');
+  @extend %wrap;
+}
+#highwrap{
+  background-image:url('../images/highbg.jpg');
+  @extend %wrap;
+}
+#summwrap{
+  background-image:url('../images/summbg.jpg');
+  @extend %wrap;
+}

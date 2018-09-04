@@ -1,0 +1,77 @@
+
+//presets for @import or @extend and variables
+
+
+%wrap{//css for the page wrappers with background
+  padding-top:170px;
+  background-position: center;
+  background-size:cover;
+  height:100vh;
+  margin:0;
+  width:100vw;
+}
+@media screen and (max-width:720px){
+  %wrap{
+    padding-top:100px;
+  }
+}
+
+
+$skyblue : #8FA1D8;
+$yellowbrown:#796D38;
+$leafgreen:#B5E0A2;
+$mossgreen:#25372C;
+$hover:rgba(255,255,255,0.3);
+
+%close{//dont forget to position
+	.close{
+    position:absolute;
+    top:0;
+    right:0;
+    border:1px solid white;
+    font-size:20px;
+    border-radius:5px;
+    display:block;
+    padding:3px;
+	    &:hover{
+	      background-color:$hover;
+	    }
+	}
+}
+
+@mixin transition($what,$time){
+	-moz-transition: $what $time;
+	-o-transition: $what $time;
+	-webkit-transition: $what $time;
+	transition: $what $time;
+}
+
+
+@mixin setposition($width,$height,$left,$top,$hwidth,$hheight,$bgw,$bgh){
+  $bgratio:$bgw/$bgh;
+  cursor:pointer;
+  border-radius:50%;
+  position:absolute;
+  height:#{$height}vh;//positioning of the label for wide screens
+  width:#{$width}vh;
+  left:#{$left}vh;
+  top:#{$top}vh;
+  &:hover{
+    height:#{$hheight}vh;//hover size and position
+    width:#{$hwidth}vh;
+    left:#{$left - ($hwidth - $width)/2}vh;
+    top:#{$top - ($hheight - $height)/2}vh;
+  }
+    @media ("min-aspect-ratio: #{$bgw}/#{$bgh}"){//samesame for high scrreens
+    height:#{$height / $bgratio}vw;
+    width:#{$width / $bgratio}vw;
+    left:#{$left / $bgratio}vw;
+    top:#{$top / $bgratio}vw;
+    &:hover{
+      height:#{$hheight / $bgratio}vw;//hover size and position
+      width:#{$hwidth / $bgratio}vw;
+      left:#{($left - ($hwidth - $width)/2) / $bgratio}vw;
+      top:#{($top - ($hheight - $height)/2) / $bgratio}vw;
+    }
+  }
+}
