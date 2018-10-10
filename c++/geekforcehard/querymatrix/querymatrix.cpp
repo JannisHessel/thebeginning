@@ -23,7 +23,7 @@ int main(){
 					current ++;
 				}
 			}
-			cout << current<< " ";
+			cout << current << " ";
 			for(int k = 0 ; k < q ; k++){
 				if ( j == query[2][k] && i >= query[1][k] && i <= query[3][k] ){
 					current--;

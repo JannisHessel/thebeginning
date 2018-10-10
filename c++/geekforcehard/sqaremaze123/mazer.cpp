@@ -41,7 +41,7 @@ int main(){
 		for (int j=0 ; j < d; j++){
 			for (int i=0;i<d;i++){//writing the grades into a file in the same order the students are
 				x = (rand()%3) + 1;
-				maze << x;
+				maze << x << " ";
 			};
 			maze << endl;
 		};

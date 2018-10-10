@@ -10,7 +10,7 @@ stack<short> memol;//saves position and advanture when there is a 3 and ways spl
 stack<short> memoc;
 stack<short> memoa;
 short maxadv = 0;
-long long path = 0;
+short path = 0;
 
 bool mazereader(){//true if there was no file found becaus eits more plesant to code
 	fstream mazefile;
@@ -43,6 +43,7 @@ bool mazereader(){//true if there was no file found becaus eits more plesant to 
 };
 
 void mazewalker(short l, short c,short a){
+	cout << l << c << a<< endl;
 	if(l > 1000 || c > 1000){
 		path++;
 		if(a > maxadv){
@@ -59,7 +60,7 @@ void mazewalker(short l, short c,short a){
 	}else if(nr == 3){
 		c++;
 		memol.push(l+1);
-		memoc.push(c-1);
+		memoc.push(c);
 		memoa.push(a);
 	}else{
 		if(l == c+1 || l+1 == c){
@@ -94,9 +95,7 @@ while(!memoa.empty()){
 	memol.pop();
 	memoc.pop();
 	memoa.pop();
-
 	mazewalker(l,c,a);
-
 }
 cout << "adventure:"<< maxadv << " path:"<< path << endl;
 
