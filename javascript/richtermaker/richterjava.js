@@ -25,8 +25,8 @@ function changecolor(x){//x is the number of the button from which the function 
 
 	let pal = document.forms["color"]["pallet"].value//picking out colors from a specific pallet element
 	let pick = 'document.forms["color"]["'+pal+'"].value'
-
 	let field = 'document.getElementById("'+x+'")' ;//building the fitting element selector
+	
 	let y = eval(field);
 	let z = eval(pick);
 	y.style.backgroundColor = z;//changing color to the selectet value
@@ -87,8 +87,10 @@ function randomizer(){
 		let r = Math.floor(Math.random()*256);//random generationg rgb values
 		let g = Math.floor(Math.random()*256);
 		let b = Math.floor(Math.random()*256);
+
 		let color = "rgb(" + r + "," + g + "," + b + ")";//creating a color string
 		let field = 'document.getElementById("'+i+'")' ;//selecting each field and filling in the color
+
 		let y = eval(field);
 		y.style.backgroundColor = color
 	}
@@ -100,10 +102,12 @@ function randbutton(){//gives the randomize colors button random colors
 		let r = Math.floor(Math.random()*256);
 		let g = Math.floor(Math.random()*256);
 		let b = Math.floor(Math.random()*256);
+
 		let color = "rgb(" + r + "," + g + "," + b + ")";
 		let field = 'document.getElementById("r'+i+'")' ;
+
 		let y = eval(field);
-		y.style.color = color
+		y.style.color = color;
 	}
 }
 
@@ -386,7 +390,7 @@ function colorout() {
 		helper = 'document.forms["color"]["col'+i+'"].value'
 		color = eval(helper)
 
-		if(color.substring(1,2)>"6" || color.substring(3,4)>"6" || color.substring(5,6)>"a"){//evaluating the brightness of the color to determen wether the text needs to be white or black to be readable
+		if(color.substring(1,2)>"7" || color.substring(3,4)>"7"){//evaluating the brightness of the color to determen wether the text needs to be white or black to be readable
 			pop += "#c"+i+"{background-color:"+color+";}"
 		}
 		else{

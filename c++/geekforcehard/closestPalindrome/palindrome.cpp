@@ -8,8 +8,6 @@ using namespace std;
 
 long long palfinder (long long x, long long po, int le , int n){
 
-	
-
 
 	if (le%2 == 1){
 
@@ -53,7 +51,7 @@ long long palcompare (long long pal , long long x, int le, long long po, int n) 
 
 		return pal;
 
-	}else{//the goal is to avoid calculating a 2nd palindrome numbe rif possible
+	}else{//the goal is to avoid calculating a 2nd palindrome number if possible
 
 		int middle = floor(10 * (x%po)/po);
 
@@ -142,23 +140,17 @@ int main (){
 
 
     string line;
-    long long d;
+    int t,le,n;
+    
+	long long d[1000];
+	long long po,pal;
 
-    while (std::getline(cin, line))//getting  the input as string to make sure it can be convertet to a longlong properly
-    {//its a loop so i can break when/if the string is emptied out into the long long
-        stringstream ss(line);
-        if (ss >> d)//streaming the string into the longlong ; so typed numbers become long long places
-        {
-            if (ss.eof())
-            {//checking if the input could completely be convertet to a longlong
-                break;
-            }
-        }
-        cout << "Could not convert the Input into a long long." << endl << "Please enter a maximum 10 digit number" << endl;;
+    cin >> t;
+    for(int i = 0; i < t; i++){
+    	cin>>d[i];
     }
-
-	int le = floor(log10(d));//length of the number
-	int n;
+	for(int i = 0; i < t; i++){
+	le = floor(log10(d[i]));//length of the number
 
 	if (le%2==0){//checking wether the length is even or odd
 
@@ -169,21 +161,21 @@ int main (){
 		n = (le + 1)/2;
 	};
 
-	long long po = (long long) (floor( pow(10, n ) + 0.5));//used for finding the center of the number
-	long long pal;
+	po = (long long) (floor( pow(10, n ) + 0.5));//used for finding the center of the number
+	pal;
 
-	if ( d == pow(10 , le)){// if the number is 10000000 the closest palindromes are 9999999 and 10000001 
+	if ( d[i] == pow(10 , le)){// if the number is 10000000 the closest palindromes are 9999999 and 10000001 
 
-		pal = d-1;
+		pal = d[i]-1;
 
 	}else{
 
-		pal =palfinder(d,po,le,n);
+		pal =palfinder(d[i],po,le,n);
 
-		pal = palcompare(pal,d,le,po,n);
+		pal = palcompare(pal,d[i],le,po,n);
 	}
 	cout << pal <<endl;
-
+	}
 
 
     

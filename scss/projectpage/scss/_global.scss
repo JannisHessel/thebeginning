@@ -1,0 +1,86 @@
+//global settings for elements in multiple pages
+
+@import "presets";
+body{
+  margin:0;
+}
+
+*{
+  font-family: Arial,serif;
+  box-sizing: border-box;
+}
+
+h1{
+  font-size: 2.5em;
+  margin-top:0;
+  text-align:center;
+}
+input{
+  display:none;
+}
+
+
+
+
+#hideall:checked ~ div , #hideall:checked ~ h1 {
+  display:none;
+}
+#hidelabel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height:20px;
+  width:150px;
+}
+#hidelabel span{
+  background-color:$hover;
+  display:none;
+  padding:5px;
+  border-radius:0 10px 0 0;
+  margin:0;
+}
+#hideall:not(:checked) ~ #hidelabel:hover span:nth-of-type(1){
+  display:block;
+}
+#hideall:checked ~ #hidelabel:hover span:nth-of-type(2){
+  display:block;
+}
+
+
+@media screen and (max-width:720px){
+  #hideall:not(:checked) ~ #hidelabel span:nth-of-type(1){
+    display:block;
+  }
+  #hideall:checked ~ #hidelabel span:nth-of-type(2){
+    display:block;
+  }
+}
+
+
+#interactives{
+  position:absolute;
+  top:50%;
+  left:50%;
+  label{
+    position:absolute;
+  }
+}
+
+#showarticle{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding:5px;
+  display:none;
+  Border-radius:10px 0 0 0;
+
+}
+
+#showart:not(:checked) ~ #showarticle{
+  display:block;
+  opacity:0;
+  &:hover{
+    background-color:$hover;
+    opacity:1;
+  }
+}

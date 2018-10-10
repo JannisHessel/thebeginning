@@ -1,0 +1,101 @@
+
+@import "presets";
+@import "templates";
+
+
+#riverwrap{
+  background-image: url('../images/riverbg.jpg');
+  @extend %wrap;
+}
+
+#interactives{
+  display:none;
+}
+
+#river-articles{
+  @include articleswap(3,orange,lightblue,$hover);
+  width:50%;
+  margin:auto;
+  article label{
+    color:lightblue;
+  }
+  display:none;
+}
+#showart:checked ~ #river-articles{
+  display:block;
+}
+#shownone:checked ~ #interactives{
+  display:block;
+}
+
+#riverquiz{
+  @include quiz(4,orange,lightblue,$hover);
+    @extend %close;
+  position:relative;
+  width:400px;
+  margin-left:200px;
+  font-size: 20px;
+  display:none;
+}
+
+#quizlab{
+  @include hoverlabel(20,3,8,2.5,-27,3,2,bottom);
+
+  &:hover img{
+    background-color:$hover;
+  }
+}
+
+#showquiz:checked ~ #riverquiz{
+  display:block;
+}
+
+#moss{
+  @include slide(400px,4,orange,lightblue,$hover);
+  margin-left:300px;
+  text-align:center;
+  border:1px solid red;
+  display:none;
+  position:relative;
+  @extend %close;
+  
+}
+
+#showmoss:checked ~ #moss {
+  display:block;
+}
+
+
+#mosslab{
+@include hoverlabel(15,7,7,11, -2.4 , 3,2, top);
+}
+ #fern{
+  @include slide(400px,3,orange,lightblue,$hover);
+  @extend %close;
+  position:relative;
+  display:none;
+  margin:auto;
+ }
+
+#fernlab{
+  @include hoverlabel(20,12,10,-43,-17,3,2,right);
+}
+#showfern:checked ~ #fern{
+  display:block;
+}
+#golake{
+  @include transition(all,1s);
+  @include setposition(10,10,-15,-23,15,15,3,2);
+  display:inline-block;
+  text-align:center;
+  text-decoration:none;
+  opacity:0;
+  background: center/cover url('../images/lakebg.jpg');
+  &:hover{ 
+    opacity:1;
+  }
+  h3{
+    margin:30% 15%;
+
+  }
+}
