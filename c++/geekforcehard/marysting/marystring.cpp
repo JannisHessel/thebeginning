@@ -34,7 +34,7 @@ int count(long length) {
 
 
 
-int main(){
+int main() {
 
 long n,q;
 long length = 0;
@@ -49,7 +49,7 @@ mstr.open("query.txt" , ios::in);
 mstr >> n;
 mstr >> q;
 
-for(long i = 0 ; i < n ; i++){
+for(long i = 0 ; i < n ; i++) {
     mstr >> str[i];
 }
 
@@ -59,7 +59,7 @@ while(mstr >> querys[i++]){}
 
 mstr.close();
 
-sort(querys,querys + q);
+sort(querys , querys + q);
 
 pos2[0] = &str[0];
 for (long i = 1 ; i < n ; i++) {
@@ -69,22 +69,22 @@ for (long i = 1 ; i < n ; i++) {
 adress[0] = &pos1[0];
 
 char **place1, **place2, **end;
-char c = 97;
+char c;
 place2 = &pos2[0] + n;
 
-while (true) {
+while (cq < q) {
 
     place1 = adress[length];
-
+    c = 97;
     end = place2;
     place2 = &pos2[0];
 
 
-    for(char **i = &pos2[0] ; i < end ; i++){
+    for(char **i = &pos2[0] ; i < end ; i++) {
         if( *i + length >= &str[0] + n ){
             break;
         }
-        if ( *(*i + length) == c ){
+        if ( *(*i + length) == c ) {
             *(place2++) = *i;
         }else {
             *(place1++) = *i;
@@ -92,7 +92,7 @@ while (true) {
 
     }
 
-    while(place2 == &pos2[0]){
+    while(place2 == &pos2[0]) {
         if ( c == 122 ){
             if (--length < 0){
                 cout << "done" << endl;
@@ -105,24 +105,23 @@ while (true) {
         end = place1;
         place1 = adress[length];
 
-        for (char **i = adress[length] ; i < end ; i++){
-            if ( *(*i + length) == c ){
+        for (char **i = adress[length] ; i < end ; i++) {
+            if ( *(*i + length) == c ) {
                 *(place2++) = *i;
-            }else {
+            } else {
                 *(place1++) = *i;
             }
         }
 
     }
-    if (++number == querys[cq]){
+    if (++number == querys[cq]) {
         cout << "got one" << endl;
         cq++;
     }
 
     
-    if(cq == q ){break;}
-    adress[++length] = place1;
-    c = 97;
+    length++;
+
     
 
 }
