@@ -22,9 +22,10 @@ int main(){
 		query << c ;
 	}
 
+	cout << (n*(n+1)/2) << endl;
 	for (int j=0 ; j < q; j++){
 		
-			x = rand()%((n*n+1)/2) +1;
+			x = rand()%(n*(n+1)/2) + 1;
 			query << endl << x;
 	};
 
