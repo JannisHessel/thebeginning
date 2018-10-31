@@ -27,31 +27,54 @@ long long * sorter(long long cq[2] , long length , char **start , char **end , l
         }
     }
 
+    if(*(*start + length) == 0) {
+        start ++ ;
+    }
     char c = *(*start + length);
     char **tempstart = start;
 
     for( char **i = start ; i < end ; i++ ) {
 
         if ( c != *(*i + length)) {
+
+
             c = *(*i + length);
+
+
 
             if(i - tempstart > 1){
 
-                    for(int k = 0 ; k <=length ; k++){
+                if(cq[0] == querys[cq[1]]){
+                    cout << "got onea" << cq[0] << endl;
+                    if(++cq[1] == q){return cq;}
+                }
+
+/*                for(int k = 0 ; k <= length ; k++){
                         cout << *(*tempstart + k);
-                    }
-                    cout << endl;
+                }
+                cout << endl;*/
+
+
 
                 cq = sorter(cq , length + 1 , tempstart , i , n , q);
+
             } else {
 
-                for(int j = length ; j + *tempstart < &str[0] + n ; j++){
+                while((&str[0] + n) - (*tempstart + length) >= querys[cq[1]] - cq[0]){
+
+                    cout << "got oneb"<< querys[cq[1]] << cq[1] <<endl;
+                    if(++cq[1] == q){return cq;}
+                }
+                cq[0] += &str[0] + n - *tempstart - length;
+
+
+/*                for(int j = length ; j + *tempstart < &str[0] + n ; j++){
 
                     for(int k = 0 ; k <= j ; k++){
                         cout << *(*tempstart + k);
                     }
-                    cout << "1" << endl;
-                }
+                    cout << endl;
+                }*/
             }
             tempstart = i;
         }
@@ -59,22 +82,37 @@ long long * sorter(long long cq[2] , long length , char **start , char **end , l
     }
     if(end - tempstart > 1){
 
-            for(int k = 0 ; k <=length ; k++){
-                cout << *(*tempstart + k);
-            }
-                    cout << endl;
+        if(cq[0] == querys[cq[1]]){
+            cout << "got onec" << cq[0] << endl;
+            if(++cq[1] == q){return cq;}
+        }
+
+/*        for(int k = 0 ; k <= length ; k++){
+            cout << *(*tempstart + k);
+        }
+        cout << endl;*/
 
 
         cq = sorter(cq , length + 1 , tempstart , end , n , q);
+
     } else {
 
-        for(int j = length ; j + *tempstart < &str[0] + n ; j++){
+        while((&str[0] + n) - (*tempstart + length) >= querys[cq[1]] - cq[0]){
+
+            cout << "got oned"<< querys[cq[1]] << endl;
+            if(++cq[1] == q){return cq;}
+        }
+        cq[0] += &str[0] + n - *tempstart - length;
+
+
+/*        for(int j = length ; j + *tempstart < &str[0] + n ; j++){
 
             for(int k = 0 ; k <= j ; k++){
                 cout << *(*tempstart + k);
             }
-                    cout << "1" << endl;
-        }
+            cout << endl;
+        }*/
+        
     }
     return cq;
 }
@@ -86,7 +124,6 @@ long n,q;
 long length = 0;
 long long  * cq;
 cq = (long long *)malloc(2*sizeof(long long));
-
 
 ifstream mstr;
 mstr.open("query.txt" , ios::in);
@@ -113,7 +150,6 @@ for (long i = 1 ; i < n ; i++) {
     pos2[i] = pos2[0] + i;
 
 }
-
 char **place1 = &pos1[0];
 
 char **place2, **end;
@@ -121,14 +157,14 @@ char c;
 place2 = &pos2[0] + n;
 
 
-while (cq[1] < q) {//implement sorter properly
+while (cq[1] < q) {
 
     adress[length] = place1;
     c = 97;
     end = place2;
     place2 = &pos2[0];
 
-    if(end - place2 < 4){
+    if(end - place2 < 2){
 
         cq = sorter(cq , length , place2 , end , n , q);
 
@@ -183,18 +219,21 @@ while (cq[1] < q) {//implement sorter properly
                 *(place1++) = *i;
             }
         }
-
     }
-
-    for(int k = 0 ; k <= length ; k++){
+    if(cq[0]++ == querys[cq[1]]){
+        cout << "got one" << cq[0] << endl;
+        if(++cq[1] == q){break;}
+    }
+    /*for(int k = 0 ; k <= length ; k++){
         cout << *(pos2[0] + k);
     }
-    cout << "2" << endl;
+    cout  <<  endl;*/
     length++;
-
 }
 
 allfound:
+cout << cq[0] << endl;
+
 
 while ( cq[1]++ < q ) {
 
