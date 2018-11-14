@@ -28,7 +28,9 @@ long long * sorter(long long cq[2] , long length , char **start , char **end , l
     }
 
     if(*(*start + length) == 0) {
-        start ++ ;
+        if(++start == end){
+            return cq;
+        }
     }
     char c = *(*start + length);
     char **tempstart = start;
@@ -44,7 +46,7 @@ long long * sorter(long long cq[2] , long length , char **start , char **end , l
 
             if(i - tempstart > 1){
 
-                if(cq[0] == querys[cq[1]]){
+                if(cq[0]++ == querys[cq[1]]){
                     cout << "got onea" << cq[0] << endl;
                     if(++cq[1] == q){return cq;}
                 }
@@ -82,16 +84,16 @@ long long * sorter(long long cq[2] , long length , char **start , char **end , l
     }
     if(end - tempstart > 1){
 
-        if(cq[0] == querys[cq[1]]){
+        if(cq[0]++ == querys[cq[1]]){
             cout << "got onec" << cq[0] << endl;
             if(++cq[1] == q){return cq;}
         }
-
-/*        for(int k = 0 ; k <= length ; k++){
+/*
+        for(int k = 0 ; k <= length ; k++){
             cout << *(*tempstart + k);
         }
-        cout << endl;*/
-
+        cout << endl;
+*/
 
         cq = sorter(cq , length + 1 , tempstart , end , n , q);
 
@@ -104,15 +106,15 @@ long long * sorter(long long cq[2] , long length , char **start , char **end , l
         }
         cq[0] += &str[0] + n - *tempstart - length;
 
-
-/*        for(int j = length ; j + *tempstart < &str[0] + n ; j++){
+/*
+        for(int j = length ; j + *tempstart < &str[0] + n ; j++){
 
             for(int k = 0 ; k <= j ; k++){
                 cout << *(*tempstart + k);
             }
             cout << endl;
-        }*/
-        
+        }
+*/        
     }
     return cq;
 }
@@ -164,9 +166,10 @@ while (cq[1] < q) {
     end = place2;
     place2 = &pos2[0];
 
-    if(end - place2 < 2){
+    if(end - place2 < 10){
 
         cq = sorter(cq , length , place2 , end , n , q);
+
 
     } else {
     
@@ -220,14 +223,17 @@ while (cq[1] < q) {
             }
         }
     }
+
     if(cq[0]++ == querys[cq[1]]){
         cout << "got one" << cq[0] << endl;
         if(++cq[1] == q){break;}
     }
-    /*for(int k = 0 ; k <= length ; k++){
+/*
+    for(long k = 0 ; k <length ; k++){
         cout << *(pos2[0] + k);
     }
-    cout  <<  endl;*/
+    cout  <<1 <<  endl;
+*/
     length++;
 }
 
