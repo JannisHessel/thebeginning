@@ -8,162 +8,139 @@ using namespace std;
 char str[100001];
 long long querys[100000];
 char * pos[100000];
+long start[100000];
 
 
-bool compare (char* a , char* j) {
+
+bool compare (char* a , char* b) {
     if (*a > *b){
         return true;
     } else if (*a == *b) {
-        return compare(a+1 , b+1)
+        return compare(a+1 , b+1);
     } else {
         return false;
     }
 }
 
+void heapify (long n , long p) {
 
-long long * sorter(long long cq[2] , long length , char **start , long n , long q) {
+    long largest = p;
+    long l = p*2 + 1;
+    long r = p*2 + 2;
 
-
-    if(*(*start + length) == 0) {
-        start ++ ;
+    if (l < n && compare(pos[l],pos[largest])) {
+        largest = l;
     }
-    char c = *(*start + length);
 
-    char **tmp = start;
-
-    while(*(*(++tmp) + length) == c);
-
-    
-    
-    cq = sorter(cq)
-
-
-
-    for( char **i = start ; i < end ; i++ ) {
-
-        if ( c != *(*i + length)) {
-
-            c = *(*i + length);
-
-            if(i - tempstart > 1){
-
-                if(cq[0] == querys[cq[1]]){
-                    cout << "got onea" << cq[0] << endl;
-                    if(++cq[1] == q){return cq;}
-                }
-
-/*                for(int k = 0 ; k <= length ; k++){
-                        cout << *(*tempstart + k);
-                }
-                cout << endl;*/
-
-
-
-                cq = sorter(cq , length + 1 , tempstart , i , n , q);
-
-            } else {
-
-                while((&str[0] + n) - (*tempstart + length) >= querys[cq[1]] - cq[0]){
-
-                    cout << "got oneb"<< querys[cq[1]] << cq[1] <<endl;
-                    if(++cq[1] == q){return cq;}
-                }
-                cq[0] += &str[0] + n - *tempstart - length;
-
-
-/*                for(int j = length ; j + *tempstart < &str[0] + n ; j++){
-
-                    for(int k = 0 ; k <= j ; k++){
-                        cout << *(*tempstart + k);
-                    }
-                    cout << endl;
-                }*/
-            }
-            tempstart = i;
-        }
-
+    if (r < n && compare(pos[r],pos[largest])) {
+        largest = r;
     }
-    if(end - tempstart > 1){
 
-        if(cq[0] == querys[cq[1]]){
-            cout << "got onec" << cq[0] << endl;
-            if(++cq[1] == q){return cq;}
-        }
-
-/*        for(int k = 0 ; k <= length ; k++){
-            cout << *(*tempstart + k);
-        }
-        cout << endl;*/
-
-
-        cq = sorter(cq , length + 1 , tempstart , end , n , q);
-
-    } else {
-
-        while((&str[0] + n) - (*tempstart + length) >= querys[cq[1]] - cq[0]){
-
-            cout << "got oned"<< querys[cq[1]] << endl;
-            if(++cq[1] == q){return cq;}
-        }
-        cq[0] += &str[0] + n - *tempstart - length;
-
-
-/*        for(int j = length ; j + *tempstart < &str[0] + n ; j++){
-
-            for(int k = 0 ; k <= j ; k++){
-                cout << *(*tempstart + k);
-            }
-            cout << endl;
-        }*/
-        
+    if (largest != p) {
+        swap(pos[p] , pos[largest]);
+        return heapify(n , largest);
     }
-    return cq;
+    return;
 }
+
 
 
 
 int main() {
 
-long n,q;
-long length = 0;
-long long  * cq;
-cq = (long long *)malloc(2*sizeof(long long));
+    long n,q;
+    long length = 0;
+    long long cq[2] = {0};//count query
 
-ifstream mstr;
-mstr.open("query.txt" , ios::in);
 
-mstr >> n;
-mstr >> q;
+    ifstream mstr;
+    mstr.open("query.txt" , ios::in);
 
-for(long i = 0 ; i < n ; i++) {
-    mstr >> str[i];
-}
+    mstr >> n;
+    mstr >> q;
 
-long i=0;
+    for(long i = 0 ; i < n ; i++) {
+        mstr >> str[i];
+    }
 
-while(mstr >> querys[i++]){}
+    long i=0;
 
-mstr.close();
+    while(mstr >> querys[i++]){}
 
-sort(querys , querys + q);
+    mstr.close();
 
-pos[0] = &str[0];
+    sort(querys , querys + q);
 
-for (long i = 1 ; i < n ; i++) {
+    pos[0] = &str[0];
 
-    pos[i] = pos[0] + i;
+    for (long i = 1 ; i < n ; i++) {
 
-}
+        pos[i] = pos[0] + i;
 
-for ( char **i = &pos[0] ; i < &pos[0] + n ; i++) {
+    }
 
-    for ( char **j = i + 1 ; j < &pos[0] + n ; j++) {
-
-        if(compare(*i , *j)) {
-
-            char *sort = *i;
-            *i = *j;
-            *j = sort;
+    if(n%2 == 0){
+        for (long i = n/2 - 1 ; i >= 0 ; i--){
+            heapify(n , i);
+        }
+    } else {
+        for (long i = (n - 1)/2 ; i >= 0 ; i--){
+            heapify(n , i);
         }
     }
+
+    cout << "a/n";
+
+    for(long i = n-1 ; i > 0 ; i--){
+        swap(pos[0] , pos[i]);
+        heapify(i , 0);
+    }
+
+    cout << "b/n";
+    start[0] = 1;
+
+    for (long i = 1 ; i < n ; i++) {
+
+        while(*(pos[i - 1] + start[i]) == *(pos[i] + start[i]++)){};
+
+    }
+
+    cout << "c/n";
+    for (long i = 0 ; i < n ; i++) {
+        while ( &str[0] + n - pos[i] - start[i] + 1  > querys[cq[1]] - cq[0]) {//&str[0] + n - pos[i] - start[i] + 1 is the number of unique substiong from that startpoint
+            int out = 0;
+            for ( char c = 97 ; c < 123 ; c++) {
+                for ( long j = 0 ; j < start[i] + querys[cq[1]] - cq[0] ; j++ ) {
+
+                    if ( c == *(pos[i] +j)) {
+                        out ++;
+                        break;
+                    }
+                }
+            }
+
+            cout << out << endl;
+            if(++cq[1] == q){
+                goto end;
+            }
+        }
+
+        cq[0] += &str[0] + n - pos[i] - start[i] + 1;
+
+        //part for writing out substings in order
+/*
+        for (char *k = pos[i] + start[i] ; k <= &str[0] + n ; k++ ){
+            for( char*j = pos[i] ; j < k  ; j++) {
+                cout << *j;
+            }
+            cout << endl;
+        }
+*/
+    }
+    end:
+    while(++cq[1] <= q){
+        cout << -1 << endl;
+    }
+
+    return 0;
 }
