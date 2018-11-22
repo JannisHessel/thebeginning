@@ -137,6 +137,7 @@ int main() {
         }
 */
     }
+    cout << cq[0] << endl;
     end:
     while(++cq[1] <= q){
         cout << -1 << endl;
